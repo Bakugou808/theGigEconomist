@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { api } from '../../services/api';
+import { fetchUser } from '../../actions/userActions'
+import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom'
 
-export default class Login extends Component {
+class Login extends Component {
 
     state = {
         error: false,
@@ -18,18 +21,17 @@ export default class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        api.auth.login(this.state.fields).then(res => {
-          if (!res.error) {
-            // const updatedState = { ...this.state.auth, user: res };
-            this.props.onLogin(res);
-            this.props.history.push('/home');
-          } else {
-            this.setState({ error: true });
-          }
-        });
-    };f
-    
-    
+
+        this.props.onFetchUser(this.state.fields)
+        this.props.history.push('/home')
+
+        if (this.props.user){
+          // this.props.history.push('/home')
+          // return <Redirect to='/home'/>
+
+        }
+    }
+
 
     render() {
         const {username, password} = this.state.fields
@@ -51,3 +53,20 @@ export default class Login extends Component {
         )
     }
 }
+
+const mapStateToProps = (store) => {
+  return {
+    user: store.user.data
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchUser: (userSignInData)=> fetchUser(userSignInData, dispatch), 
+    // the above is for api/async calls 
+    // onChangeData: (newData) => dispatch(dataChangeAction(newData))   ---> this is for normal state changes, dispatch the outcome of an action creator, just to modify state
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps )(Login)

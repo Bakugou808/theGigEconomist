@@ -2,7 +2,7 @@ const API_ROOT = (path)=> `http://localhost:3000${path}`
 
 const token = () => localStorage.getItem("token");
 
-const headers = () => {
+export const headers = () => {
     return {
       "Content-Type": "application/json",
       Accept: "application/json",

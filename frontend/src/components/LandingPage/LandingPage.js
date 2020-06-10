@@ -13,13 +13,13 @@ const Landingpage = (props) => {
                 <div className="signup_form col-5">
                     <h2 className="text-info">Signup</h2>
                     <br></br>
-                    <Signup {...props} onSignup={onSignup}/>
+                    <Signup {...props} />
                 </div>
                 <div className="col-1"></div>
                 <div className="login_form col-6">
                     <h2 className="text-info">Login</h2>
                     <br />
-                    <Login {...props} onLogin={onLogin} />
+                    <Login {...props}  />
                 </div>
             </div>
         </div>

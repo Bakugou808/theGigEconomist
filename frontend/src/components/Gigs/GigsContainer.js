@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import {AuthHOC} from '../HOCs/AuthHOC'
 
-export default class GigsContainer extends Component {
+
+class GigsContainer extends Component {
     render() {
         return (
             <div>
@@ -9,3 +11,5 @@ export default class GigsContainer extends Component {
         )
     }
 }
+
+export default AuthHOC(GigsContainer)

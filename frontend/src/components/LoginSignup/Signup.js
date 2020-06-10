@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { api } from '../../services/api';
+import { signUpUser } from '../../actions/userActions'
+import { connect } from 'react-redux';
 
-
-export default class Signup extends Component {
+class Signup extends Component {
 
     state = {
         error: false,
@@ -25,16 +25,8 @@ export default class Signup extends Component {
         e.preventDefault();
         const {password, password_confirmation} = this.state.fields
         if (password_confirmation === password) {
-            api.auth.signup(this.state.fields).then(res => {
-                console.log(res)
-                if (!res.error) {
-                  // const updatedState = { ...this.state.auth, user: res };
-                  this.props.onSignup(res);
-                  this.props.history.push('/home');
-                } else {
-                  this.setState({ error: true });
-                }
-              });
+            this.props.onSignUpUser(this.state.fields)
+            this.props.history.push('/home')
         } else {
             alert("passwords do not match")
         }
@@ -78,3 +70,20 @@ export default class Signup extends Component {
         )
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+      user: store.user.data
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      onSignUpUser: (userSignUpData)=> signUpUser(userSignUpData, dispatch), 
+      // the above is for api/async calls 
+      // onChangeData: (newData) => dispatch(dataChangeAction(newData))   ---> this is for normal state changes, dispatch the outcome of an action creator, just to modify state
+    }
+  }
+  
+  
+  export default connect(mapStateToProps, mapDispatchToProps )(Signup)

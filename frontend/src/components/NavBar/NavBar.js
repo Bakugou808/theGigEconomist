@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { Nav, Navbar } from 'react-bootstrap'
 import styled from 'styled-components'
+import { connect } from 'react-redux';
+
+import {signOutUser} from '../../actions/userActions'
+import {AuthHOC} from '../HOCs/AuthHOC'
+
+
 
 
 const Styles = styled.div`
@@ -20,64 +26,61 @@ const Styles = styled.div`
 `
 
 
-export default class NavBar extends Component {
+class NavBar extends Component {
 
-    state = {
-        flag: true
-    }
-
+    
     onLogout = () => {
-        const {onLogout} = this.props 
-        onLogout()
-        
+        const {onSignOutUser, user} = this.props
+        onSignOutUser(user.id)
         this.props.history.push("/")
     }
 
-
+    renderBar = () => {
+        if (this.props.user){
+            return (
+                <Styles>
+                <Navbar expand="lg">
+                    <Nav.Item className="navbar-item">{this.props.user.username}</Nav.Item>
+                    <Nav.Item className="navbar-item" href='/'>The GigEconomist</Nav.Item>
+                    {this.props.user.username && <Nav.Item onClick={this.onLogout} className="navbar-item">Sign Out</Nav.Item>}
+                </Navbar>
+                </Styles>
+            )
+        } else {
+            return (
+                <Styles>
+                <Navbar expand="lg">
+                    <Nav.Item className="navbar-item" href='/'>The GigEconomist</Nav.Item>
+                </Navbar>
+                </Styles>
+            )
+        }
+    }
+    
 
     render() {
-        const {username} = this.props.user
+        // const {user} = this.props
+        console.log("in navbar ")
         return (
-
-            <Styles>
-                <Navbar expand="lg">
-                    {/* <Navbar.Toggle aria-controls="basic-sidebar-nav" /> */}
-
-                    <Nav.Item className="navbar-item">{username}</Nav.Item>
-                    <Nav.Item className="navbar-item" href='/'>The GigEconomist</Nav.Item>
-                    
-                    
-                    {username && <Nav.Item onClick={this.onLogout} className="navbar-item">Sign Out</Nav.Item>}
-                 
-                    {/* <Nav.Item><Nav.Link href="/home">Home</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link href="/services">Services</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link href="/gigs">Gigs</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link href="/clients">Clients</Nav.Link></Nav.Item> */}
-                    {/* <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className='ml-auto'>
-                            
-                            <Nav.Item><Nav.Link href="/home">Home</Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link href="/services">Services</Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link href="/gigs">Gigs</Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link href="/clients">Clients</Nav.Link></Nav.Item>
-                        </Nav>
-                    </Navbar.Collapse> */}
-                </Navbar>
-            </Styles>
-
-
-
-
-
-            // <nav>
-            //     The GigEconomist
-            //     <div>
-            //         {username && <div>Welcome {username}</div>  }
-            //     {
-            //         username ? <button className="ml-3 mb-1 option btn btn-outline-danger" onClick={this.onLogout}>SIGN OUT</button> : null
-            //     }   
-            //     </div>
-            // </nav>
+            <Styles>{this.renderBar()}</Styles>
+            
         )
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+      user: store.user.data
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      onSignOutUser: (userId)=> dispatch(signOutUser(userId)) 
+      // the above is for api/async calls 
+      // onChangeData: (newData) => dispatch(dataChangeAction(newData))   ---> this is for normal state changes, dispatch the outcome of an action creator, just to modify state
+    }
+  }
+
+// export default AuthHOC(connect(mapStateToProps, mapDispatchToProps)(NavBar))
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

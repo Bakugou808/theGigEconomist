@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import {AuthHOC} from '../HOCs/AuthHOC'
+
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 
 // Be sure to include styles at some point, probably during your bootstraping
@@ -8,8 +10,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 // import './Sidemenu.scss'
 // import Search from './Search'
-
-export default class SideMenu extends Component {
+class SideMenu extends Component {
 
     
 
@@ -71,3 +72,8 @@ export default class SideMenu extends Component {
         )
     }
 }
+
+
+// export default AuthHOC(SideMenu)
+
+export default SideMenu

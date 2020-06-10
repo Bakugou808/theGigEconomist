@@ -1,51 +1,81 @@
 import React, { Fragment } from "react";
 import { api } from "../../services/api";
+import { fetchCurrentUser, fetchCurrentUserSuccess } from '../../actions/authActions'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 
-const AuthHOC = WrappedComponent => {
+ export const AuthHOC = WrappedComponent => {
     console.log(WrappedComponent)
-    return class AuthHOC extends React.Component {
-  
+    class AuthHOC extends React.Component {
+      // unknown
+      // unauthorized 
+      // authorized
+
       state = {
-        authorized: false
-      };
-  
+        authorized: false,
+        pending: true, 
+      }
+
+      renderAuth = () => {
+        if (this.state.pending){
+          return null
+        } else if (this.state.authorized){
+          return <WrappedComponent {...this.props} />
+        } else {
+          // return <Redirect to='/'/>
+          this.props.history.push('/')
+        }
+      }
+
       componentDidMount() {
           this.checkLogin()
+          
       }
   
       checkLogin = () => {
         if (!localStorage.getItem("token")) {
-          this.props.history.push("/")
+          this.setState({pending: false, authorized: false})
         } else {
-          api.auth.getCurrentUser().then((resp) => {
-            if (resp.error) {
-              this.props.history.push("/")
+          // fetchCurrentUser()
+          api.auth.getCurrentUser().then(resp => {
+            if(resp.error){
+              this.setState({pending: false, authorized: false})
             } else {
-              this.setState({
-                authorized: true
-              });
+              // debugger
+              this.setState({authorized: true, pending: false}, ()=> this.props.onFetchCurrentUserSuccess(resp))
             }
-          });
+          })
         }
       };
-  
-      isAuthorized = () => {
-        return this.state.authorized;
-      };
-  
+
       render() {
         return (
           <div>
-            {this.isAuthorized() ? (
-              <WrappedComponent {...this.props} />
-            ) : (
-              null
-            )}
+            {this.renderAuth()}
           </div>
         );
       }
-    };
-  };
+  //   };
+  // };
+};
+  const mapStateToProps = (store) => {
+    return {
+      user: store.user.data,
+      authorized: store.authorized
+    }
+  }
   
-  export default AuthHOC;
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      onFetchCurrentUser: ()=> fetchCurrentUser(dispatch), 
+      onFetchCurrentUserSuccess: (user)=> dispatch(fetchCurrentUserSuccess(user))
+    }
+  }
+
+
+
+  return connect(mapStateToProps, mapDispatchToProps)(AuthHOC)
+
+
+};
