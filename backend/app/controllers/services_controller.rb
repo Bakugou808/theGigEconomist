@@ -1,48 +1,53 @@
 class ServicesController < ApplicationController
-    before_action :set_user, only: [:show, :update, :destroy]
+    before_action :set_service, only: [:show, :update, :destroy]
 
     def index 
-        users = User.all  
-        render json: users
+        services = Service.all  
+        render json: services
     end
  
     def show 
-        render json: @user
+        render json: @service
         # , include: ['profiles']
     end 
 
+    def usersServices
+        services = Service.where(user_id: params[:user_id].to_i)
+        render json: services
+    end
+
     def create 
-        
-        @user = User.new(user_params)
-        if @user.save 
-            token = issue_token_on_signup(@user)
-            render json: {firstName: @user.firstName, lastName: @user.lastName, username: @user.username, id: @user.id, email: @user.email, jwt: token}
+        @service = Service.new(service_params)
+        if @service.save 
+            render json: @service
         else
-            render json: {error: 'That user could not be created'}, status: 401
+            render json: {error: 'That service could not be created'}, status: 401
         end 
     end 
 
     def update 
-        if @user.update(user_params)
-            render json:@user 
+        
+        if @service.update(service_params)
+            render json: @service 
         # else 
         end 
     end 
 
-    def destroy 
-        @user.destroy 
-        render json: "User Deleted"
+    def destroy  
+        id = @service.id
+        @service.destroy 
+        render json: id
     end 
 
 
     private 
 
-    def set_user 
+    def set_service 
         
-        @user = User.find(params[:id])
+        @service = Service.find(params[:id])
     end 
 
-    def user_params
-        params.permit(:firstName, :lastName, :username, :email, :password, :password_confirmation)
+    def service_params
+        params.permit(:title, :description, :pay_range, :user_id)
     end 
 end
