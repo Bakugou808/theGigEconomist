@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#create'
   get '/current_user', to: 'auth#show'
   get '/user_services/:user_id', to: 'services#usersServices'
+  get '/user_clients/:user_id', to: 'clients#usersClients'
 end

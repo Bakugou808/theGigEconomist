@@ -24,13 +24,13 @@ class App extends React.Component {
       <div>
           <Route path="/" render={props => <NavBar {...props} /> } />
           <Route exact path="/" render={props => <Landingpage {...props} /> } />
-          {<Route path='/' render={props=> <Sidemenu {...props} />} />}
+          {auth && <Route path='/' render={props=> <Sidemenu {...props} />} />}
 
           <Route exact path='/home' render={props => <Homepage {...props} />}/>
           <Route path='/gigs' render={props => <GigsContainer {...props} />} />
           <Route path='/clients' render={props => <ClientsContainer {...props} />} />
           <Route exact path='/services' render={props => <ServicesContainer {...props} />} /> 
-          {/* <Route path={`/services/:serviceId`} render={props => <ServiceView {...props} />} /> */}
+          <Route path={`/services/:serviceId`} render={props => <ServiceView {...props} />} />
           
           {/* <Route path="/" render={props => <NavBar {...props} /> } />
           {user && <Route path='/' render={props=> <Sidemenu {...props} />} />}

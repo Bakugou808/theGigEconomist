@@ -11,6 +11,11 @@ class ClientsController < ApplicationController
         # , include: ['profiles']
     end 
 
+    def usersClients
+        clients = Client.findClientsFor(params[:user_id])
+        render json: clients
+    end
+
     def create 
         
         @client = Client.new(client_params)

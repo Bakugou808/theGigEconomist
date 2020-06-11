@@ -27,18 +27,24 @@ class ServiceCard extends Component {
     
 
     render(){
-       const {service, onDeleteService, match, redirect} = this.props
-       if(redirect) {return <Redirect to={`${match.url}/${service.id}`} service={service}/>}
+       const {service, onDeleteService, match, history} = this.props
+
+       const location = {
+           pathname: `${match.url}/${service.id}`,
+           state: { service: service}
+       }
+
+       if(this.state.redirect) {
+            history.push(location)
+            history.replace(location)
+            return <Redirect to={location}/>}
         return (
         <div>
             <span onClick={this.handleView}>
                 {`${service.title} ${service.pay_range} ${service.description} `}
             </span>
-             {/* <Link to={`${match.url}/${service.id}`}>
-                {`${service.title} ${service.pay_range} ${service.description} `}
-            </Link> */}
+             
             
-            <Route path={`/services/:serviceId`} render={props => <ServiceView {...props} />} />
 
             <span onClick={()=> onDeleteService(service.id)}>X</span>
             <button onClick={this.handleEdit}>Edit</button>

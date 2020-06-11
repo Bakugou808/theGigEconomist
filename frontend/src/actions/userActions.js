@@ -93,7 +93,7 @@ export const fetchUser = (data, dispatch) => {
                     dispatch(signUpUserSuccess(data))
                     localStorage.setItem("token", data.jwt)
                     localStorage.setItem("userId", data.id)
-                    return <Redirect to='/home'/>
+                    // return <Redirect to='/home'/> 
 
                 }
             })

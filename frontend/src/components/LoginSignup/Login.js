@@ -24,6 +24,7 @@ class Login extends Component {
 
         this.props.onFetchUser(this.state.fields)
         this.props.history.push('/home')
+        // return <Redirect to='/home'/>
 
         if (this.props.user){
           // this.props.history.push('/home')
