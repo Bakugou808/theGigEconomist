@@ -16,7 +16,7 @@ class ServicesList extends Component {
         return this.props.services.data.map(service => <ServiceCard service={service} match={match} history={history} />)
     }
       
-
+ 
     render() {
         return (
             <div>

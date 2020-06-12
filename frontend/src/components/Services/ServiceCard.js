@@ -5,6 +5,7 @@ import { Redirect } from 'react-router'
 
 import { connect } from 'react-redux'
 import { deleteService } from '../../actions/serviceActions'
+import { setGigsForService } from '../../actions/gigActions'
 import NewServiceForm from '../Services/NewServiceForm'
 import ServiceView from '../Services/ServiceView'
 
@@ -12,7 +13,7 @@ import ServiceView from '../Services/ServiceView'
 class ServiceCard extends Component {
 
     state = {
-        edit: false,
+        edit: false, 
         redirect: false,
     }
 
@@ -27,7 +28,7 @@ class ServiceCard extends Component {
     
 
     render(){
-       const {service, onDeleteService, match, history} = this.props
+       const {service, onDeleteService, match, history, onSetGigsForService} = this.props
 
        const location = {
            pathname: `${match.url}/${service.id}`,
@@ -37,6 +38,8 @@ class ServiceCard extends Component {
        if(this.state.redirect) {
             history.push(location)
             history.replace(location)
+            onSetGigsForService(service.gigs)
+            // redirects to serviceView component
             return <Redirect to={location}/>}
         return (
         <div>
@@ -60,7 +63,8 @@ class ServiceCard extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return { 
-        onDeleteService: (serviceId) => deleteService(serviceId, dispatch)
+        onDeleteService: (serviceId) => deleteService(serviceId, dispatch),
+        onSetGigsForService: (gigsList) => dispatch(setGigsForService(gigsList))
     }
 }
 

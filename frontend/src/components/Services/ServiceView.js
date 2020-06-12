@@ -3,39 +3,49 @@ import { connect } from 'react-redux'
 import { AuthHOC } from '../HOCs/AuthHOC'
 import GigsList from '../Gigs/GigsList'
 import GigView from '../Gigs/GigView'
+import GigForm from '../Gigs/GigForm'
 
 
 class ServiceView extends Component {
 
     
     state = {
-        selected_gig: null
+        new_gig: false,
+
     }
 
 
-    selectGig = (gig) => {
-        this.setState({selected_gig: gig})
+    addGig = () => {
+        this.setState(prev => ({new_gig: !prev.new_gig}))
     }
     
     
 
     render() {
-        const {gigs} = this.props.location.state.service
+        const {service} = this.props.location.state
         return (
             <div>
                 I am a service view
                 <div>
-                    <GigsList gigs={gigs} selectGig={this.selectGig} />
+                    <GigsList gigs={this.props.location.state.service.gigs} />
                 </div>
                 <div>
-                    {this.state.selected_gig && <GigView gig={this.state.selected_gig} />}
+                    {this.props.selectedGig && <GigView />}
+                </div>
+                <div>
+                    <button onClick={this.addGig}>Add Gig</button>
+                    {this.state.new_gig && <GigForm closeForm={this.addGig} service={service} />}
                 </div>
             </div>
         )
     }
 }
-const mapStateToProps = (state) => {
-    return { services: state.services}
+const mapStateToProps = (store) => {
+    return { 
+        services: store.services,
+        gigs: store.gigs,
+        selectedGig: store.gigs.selectedGig
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

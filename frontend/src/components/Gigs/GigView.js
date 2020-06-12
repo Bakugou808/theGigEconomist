@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class GigView extends Component {
+class GigView extends Component {
 
 
     render() {
@@ -11,3 +12,10 @@ export default class GigView extends Component {
         )
     }
 }
+
+const mapStateToProps = (store) => {
+    return {gig: store.gigs.selectedGig}
+}
+
+
+export default connect(mapStateToProps)(GigView)

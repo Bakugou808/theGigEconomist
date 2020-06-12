@@ -15,8 +15,18 @@ import { fetchCurrentUser } from '../src/actions/authActions'
 import { connect } from 'react-redux';
 import ServiceView from '../src/components/Services/ServiceView'
 
+import { fetchClients } from './actions/clientActions'
+import { fetchServices } from './actions/serviceActions'
+
+const user_id = localStorage.userId
 
 class App extends React.Component {
+
+  componentDidMount(){
+    this.props.onFetchClients(user_id)
+    this.props.onFetchServices(user_id)
+
+  }
 
   render() {
     const {auth} = this.props
@@ -54,9 +64,16 @@ const mapStateToProps = (state)=> {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchClients: (userId) => fetchClients(userId, dispatch),
+    onFetchServices: (userId) => fetchServices(userId, dispatch)
+  }
+}
 
 
 
-export default connect(mapStateToProps)(App)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 // export default AuthHOC(App)
 

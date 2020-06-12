@@ -12,7 +12,6 @@ class GigsController < ApplicationController
     end 
 
     def create 
-        
         @gig = Gig.new(gig_params)
         if @gig.save 
             render json: @gig

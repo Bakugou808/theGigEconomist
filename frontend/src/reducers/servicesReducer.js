@@ -3,6 +3,8 @@ const initialState = {
     data: [],
     fetching: false,
     error: false,
+    selectedGigs: [],
+    selectedAppointments:[]
 }
 
 const servicesReducer = (state=initialState, action) => {
