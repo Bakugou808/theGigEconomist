@@ -1,6 +1,7 @@
 const initialState = {
     data: [],
     fetching: false,
+    error: false
 }
 
 const userReducer = (state=initialState, action) => {
@@ -19,8 +20,15 @@ const userReducer = (state=initialState, action) => {
             return {
                 ...state,
                 fetching: false, 
-                data: action.user
+                data: action.user,
+                error: false 
             }   
+        case 'FETCH_USER_FAILURE':
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error 
+            }  
         case 'FETCH_CURRENT_USER_SUCCESS':
             return {
                 ...state,
@@ -28,11 +36,13 @@ const userReducer = (state=initialState, action) => {
                 data: action.user
             } 
         case 'SIGN_OUT_USER':
-            localStorage.removeItem("token");
-            localStorage.removeItem("userId");
+            // doesn't work in case
+            // localStorage.removeItem("token");
+            // localStorage.removeItem("userId");
             return {
                 ...state,
-                data: []
+                data: [],
+                error: false
             }
         case 'SIGN_UP_USER_SUCCESS':
             return {
@@ -49,7 +59,7 @@ const userReducer = (state=initialState, action) => {
             return {
                 ...state,
                 fetching: false, 
-                data: action.error
+                error: action.error
             }   
         default:
             return state

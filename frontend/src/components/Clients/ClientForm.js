@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { patchClient, postNewClient } from '../../actions/clientActions'
 
+const user_id = localStorage.userId 
+
 class ClientForm extends Component {
 
     state = {
@@ -11,7 +13,8 @@ class ClientForm extends Component {
             contact_name: '',
             email: '',
             cell: '',
-            venmo: ''
+            venmo: '',
+            user_id: user_id
         }
     }
 
@@ -23,10 +26,12 @@ class ClientForm extends Component {
                 contact_name: client.contact_name,
                 email: client.email, 
                 cell: client.cell, 
-                venmo: client.venmo 
+                venmo: client.venmo,
+                user_id: user_id 
             }, edit: true
         })
         }
+        
     }
 
     handleChange = (e) => {
@@ -72,7 +77,7 @@ class ClientForm extends Component {
                         <label>venmo</label>
                         <input className="form-control" type="name" name="venmo" value={venmo} required onChange={this.handleChange}/>
                     </div>
-                    <button className="btn btn-info" type="submit">Submit</button>
+                    <button className="btn btn-info" type="submit">Add Client</button>
                 </form>
             </div>
         )

@@ -21,7 +21,7 @@ class ServiceView extends Component {
     
     
 
-    render() {
+    render() { 
         const {service} = this.props.location.state
         return (
             <div>

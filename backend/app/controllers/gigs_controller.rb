@@ -7,11 +7,12 @@ class GigsController < ApplicationController
     end
  
     def show 
-        render json: @gig
+        render json: @gig, include: ["client"]
         # , include: ['profiles']
     end 
 
     def create 
+        
         @gig = Gig.new(gig_params)
         if @gig.save 
             render json: @gig
@@ -41,6 +42,6 @@ class GigsController < ApplicationController
     end 
 
     def gig_params
-        params.permit(:title, :service_type, :service_id, :client_id, :details, :completed)
+        params.permit(:title, :service_type, :service_id, :client_id, :details, :completed, :amount_due)
     end 
 end

@@ -100,6 +100,15 @@ const servicesReducer = (state=initialState, action) => {
                 fetching: false, 
                 data: state.data.filter(service => service.id != action.serviceId)
             } 
+        
+        // case 'SIGN_OUT_USER':
+
+        //     return {
+        //         ...state,
+        //         data: [],
+        //         selectedGigs: [],
+        //         selectedAppointments:[]
+        //     }
 
         default:
             return state

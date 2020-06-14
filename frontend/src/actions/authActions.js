@@ -9,7 +9,7 @@ export const headers = () => {
     }; 
 };
 
-
+ 
 export const fetchCurrentUserRequest = () => {
     return {
         type: 'FETCH_CURRENT_USER_REQUEST'

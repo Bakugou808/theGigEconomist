@@ -12,7 +12,7 @@ const authReducer = (state=initialState, action) => {
 
         case 'FETCH_CURRENT_USER_REQUEST':
             console.log("in user request case")
-            return {
+            return { 
                 ...state,
                 fetching: true
             }
@@ -23,6 +23,16 @@ const authReducer = (state=initialState, action) => {
                 // fetching: false, 
                 data: true
             }   
+        case 'FETCH_USER_SUCCESS':
+            return {
+                ...state,
+                data: true
+            }
+        case 'SIGN_UP_USER_SUCCESS':
+            return {
+                ...state,
+                data: true
+            }
         case 'SIGN_OUT_USER':
             // localStorage.removeItem("token");
             return {

@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { postNewGig, patchGig } from '../../actions/gigActions'
 import Autocomplete from './Autocomplete'
+import ClientForm from '../Clients/ClientForm'
 
 class GigForm extends Component {
 
     state = {
         edit: false,
         error: false,
+        newClient: false,
         fields: {
             title: '',
             details: '', 
@@ -15,10 +17,9 @@ class GigForm extends Component {
             client_id: '',
             service_id: '',
             completed: false,
-            // amount_due: 
+            amount_due: 0.00
             // user_id: this.props.user.id,
-        },
-        clients: []
+        }
     }
 
     handleChange = (e) => {
@@ -55,10 +56,16 @@ class GigForm extends Component {
         }
     }
     
+    handleNewClient = () => {
+        this.setState(prev => ({newClient: !prev.newClient}))
+    }
+
+    
+
     
 
     render() {
-        const {title, details, client_id} = this.state.fields 
+        const {title, details, amount_due} = this.state.fields 
 
         return (
             <div>
@@ -72,17 +79,19 @@ class GigForm extends Component {
                 <label>Details</label>
                 <input className="form-control" type="name" name="details" value={details} required onChange={this.handleChange}/>
             </div>
-            {/* <div className="form-group">
-                <label>Client</label>
-                <input className="form-control" type="name" name="client_id" value={client_id} required onChange={this.handleChange}/>
-            </div> */}
             <div className="form-group">
-                <label>Client</label>
-                <Autocomplete suggestions={this.suggestions()} setClient={this.setClient} />
+                <label>Amount Due</label>
+                <input className="form-control" type="number" name="amount_due" value={amount_due} required onChange={this.handleChange}/>
+            </div>
+            </form>
+            <div className="form-group">
+                <label>Search Clients</label><label onClick={this.handleNewClient}>New Client</label> 
+                {!this.state.newClient ? <Autocomplete suggestions={this.suggestions()} setClient={this.setClient} /> : <ClientForm handleClick={this.handleNewClient}/>}
+                
             </div>
 
-               <button className="btn btn-info" type="submit">Submit</button>
-           </form>
+               <button className="btn btn-info" type="submit" onClick={this.handleSubmit}>Submit</button>
+               {/* </form> */}
        </div>
         )
     }

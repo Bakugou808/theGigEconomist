@@ -24,21 +24,26 @@ class Login extends Component {
 
         this.props.onFetchUser(this.state.fields)
         this.props.history.push('/home')
+
         // return <Redirect to='/home'/>
-
-        if (this.props.user){
-          // this.props.history.push('/home')
-          // return <Redirect to='/home'/>
-
-        }
+        // this.postSubmit()
     }
+
+    postSubmit = () => {
+      if (this.props.error){
+        this.setState({error: true})
+      } else if (this.props.user.username){
+        this.props.history.push('/home')
+      }
+    }
+    
 
 
     render() {
         const {username, password} = this.state.fields
         return (
             <div>
-                 {this.state.error ? <h1>Try again...</h1> : null}
+                 {this.props.error ? <h1>Try again...</h1> : null}
                 <form className="login-form" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                       <label>Username</label>
@@ -50,14 +55,15 @@ class Login extends Component {
                     </div>
                     <button className="btn btn-info" type="submit">Login</button>
                 </form>
-            </div>
+            </div> 
         )
-    }
+    } 
 }
 
 const mapStateToProps = (store) => {
   return {
-    user: store.user.data
+    user: store.user.data,
+    error: store.user.error
   }
 }
 

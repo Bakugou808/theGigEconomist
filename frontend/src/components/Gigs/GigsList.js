@@ -13,7 +13,7 @@ class GigsList extends Component {
 
     renderGigs = () => {
         const {gigList, onSelectGig} = this.props
-        
+         
         
     return this.props.gigList.map(gig=> {
         return (

@@ -32,6 +32,8 @@ class NavBar extends Component {
     onLogout = () => {
         const {onSignOutUser, user} = this.props
         onSignOutUser(user.id)
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         this.props.history.push("/")
     }
 

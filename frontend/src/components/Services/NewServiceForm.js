@@ -42,11 +42,24 @@ class NewServiceForm extends Component {
 
 
     render() {
+
+        const formStyle = {
+            'margin': '10px'
+        }
+
+        const divStyle = {
+            'border-style': 'solid',
+            'margin': '8px',
+            'border-radius': '5px',
+            'border': '2px solid '
+
+        }
+
         const {title, description, pay_range} = this.state.fields 
         return (
-            <div>
+            <div style={divStyle}>
             {this.state.error ? <h1>Try again...</h1> : null}
-           <form className="signup-form" onSubmit = {this.handleSubmit}>
+           <form className="signup-form" style={formStyle}onSubmit = {this.handleSubmit}>
              <div className="form-group">
                 <label>Title</label>
                 <input className="form-control" type="name" name="title" value={title} required onChange={this.handleChange}/>

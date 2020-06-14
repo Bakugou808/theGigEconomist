@@ -9,6 +9,8 @@ import { setGigsForService } from '../../actions/gigActions'
 import NewServiceForm from '../Services/NewServiceForm'
 import ServiceView from '../Services/ServiceView'
 
+import Button from 'react-bootstrap/Button'
+
 
 class ServiceCard extends Component {
 
@@ -35,6 +37,14 @@ class ServiceCard extends Component {
            state: { service: service}
        }
 
+       const titleStyle = {
+           "font-size": '23px'
+       }
+
+       const cardStyle = {
+           "margin": '10px'
+       }
+
        if(this.state.redirect) {
             history.push(location)
             history.replace(location)
@@ -42,15 +52,14 @@ class ServiceCard extends Component {
             // redirects to serviceView component
             return <Redirect to={location}/>}
         return (
-        <div>
+        <div style={cardStyle}>
             <span onClick={this.handleView}>
-                {`${service.title} ${service.pay_range} ${service.description} `}
+                {/* <div style={titleStyle}>{service.title}</div> */}
+                {`Pay Range: ${service.pay_range}`} <br/>{`Description: ${service.description} `}
             </span>
-             
-            
 
-            <span onClick={()=> onDeleteService(service.id)}>X</span>
-            <button onClick={this.handleEdit}>Edit</button>
+            <Button variant='outline-warning' size='sm' onClick={this.handleEdit}>Edit</Button>
+            <Button variant='outline-warning' size='sm' onClick={()=> onDeleteService(service.id)}>Delete</Button>
             <div>
                 {this.state.edit && <NewServiceForm service={service} handleClick={this.handleEdit}/>}
             </div>

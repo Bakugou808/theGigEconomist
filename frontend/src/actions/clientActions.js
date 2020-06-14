@@ -154,7 +154,6 @@ fetch(`http://localhost:3000/clients/${clientId}`, {
 
 export const deleteClient = (clientId, dispatch) => {
 dispatch(deleteClientRequest())
-console.log(clientId)
 fetch(`http://localhost:3000/clients/${clientId}`, {
     method: 'DELETE',
     headers: headers(),
@@ -164,8 +163,7 @@ fetch(`http://localhost:3000/clients/${clientId}`, {
         if (data.error){
             dispatch(deleteClientFailure(data.error))
         } else {
-            console.log('indelete success')
-            dispatch(deleteClientSuccess(data))
+            dispatch(deleteClientSuccess(data.client_id))
         }
     }) 
 }

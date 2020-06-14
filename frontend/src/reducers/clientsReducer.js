@@ -98,6 +98,13 @@ const clientsReducer = (state=initialState, action) => {
                 data: state.data.filter(client => client.id != action.clientId)
             } 
 
+        // case 'SIGN_OUT_USER':
+
+        //     return {
+        //         ...state,
+        //         data: [],
+        //     }
+
         default:
             return state
     }

@@ -13,6 +13,7 @@ class ClientsController < ApplicationController
 
     def usersClients
         clients = Client.findClientsFor(params[:user_id])
+        
         render json: clients
     end
 
@@ -20,6 +21,7 @@ class ClientsController < ApplicationController
         
         @client = Client.new(client_params)
         if @client.save 
+            
             render json: @client
         else
             render json: {error: 'That client could not be created'}, status: 401
@@ -34,8 +36,9 @@ class ClientsController < ApplicationController
     end 
 
     def destroy 
+         id = @client.id
         @client.destroy 
-        render json: "client Deleted"
+        render json: {resp: "client Deleted", client_id: id}
     end 
 
 
@@ -47,6 +50,6 @@ class ClientsController < ApplicationController
     end 
 
     def client_params
-        params.permit(:company_name, :contact_name, :email, :cell, :venmo)
+        params.permit(:company_name, :contact_name, :email, :cell, :venmo, :user_id)
     end 
 end

@@ -9,7 +9,7 @@ class AuthController < ApplicationController
           token = issue_token(user)
           render json: {firstName: user.firstName, lastName: user.lastName, username: user.username, id: user.id, email: user.email, jwt: token}
         else
-          render json: {error: 'That user could not be found'}, status: 401
+          render json: {error: 'That user could not be found', status: 401}
         end
       end
     

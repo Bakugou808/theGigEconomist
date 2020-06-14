@@ -23,7 +23,7 @@ class ClientCard extends Component {
                 <span>{client.email}</span>
                 <span>{client.cell}</span>
                 <span>{client.venmo}</span>
-                <span onClick={this.props.onDeleteClient(client.id)}>X</span>
+                <span onClick={()=>this.props.onDeleteClient(client.id)}>X</span>
                 <button onClick={this.handleClick}>Edit Client</button>
                 {this.state.edit && <ClientForm client={client} handleClick={this.handleClick}/> }
             </div>

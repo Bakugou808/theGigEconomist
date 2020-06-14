@@ -1,5 +1,7 @@
 import {headers} from '../services/api'
 
+// ----------FETCH ALL SERVICES REQUEST-------  *****************************
+
 export const fetchServicesRequest = () => {
     return {
         type: 'FETCH_SERVICES_REQUEST'
