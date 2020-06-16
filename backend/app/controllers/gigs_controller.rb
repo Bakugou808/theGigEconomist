@@ -7,7 +7,7 @@ class GigsController < ApplicationController
     end
  
     def show 
-        render json: @gig, include: ["client"]
+        render json: @gig, include: ["client", "appointments"]
         # , include: ['profiles']
     end 
 

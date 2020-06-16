@@ -90,7 +90,14 @@ export const deleteServiceFailure = (error) => {
     }
 }
 
+// ----------SELECT SERVICE FOR VIEW-------  *****************************
 
+export const selectService = (service) => {
+    return {
+        type: 'SELECT_SERVICE_FOR_VIEW',
+        service: service
+    }
+}
 
 
 

@@ -3,8 +3,7 @@ const initialState = {
     data: [],
     fetching: false,
     error: false,
-    selectedGigs: [],
-    selectedAppointments:[]
+    selectedService: [],
 }
 
 const servicesReducer = (state=initialState, action) => {
@@ -100,6 +99,13 @@ const servicesReducer = (state=initialState, action) => {
                 fetching: false, 
                 data: state.data.filter(service => service.id != action.serviceId)
             } 
+
+        case 'SELECT_SERVICE_FOR_VIEW':
+
+            return {
+                ...state, 
+                selectedService: action.service
+            }
         
         // case 'SIGN_OUT_USER':
 

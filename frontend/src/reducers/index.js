@@ -4,14 +4,15 @@ import userReducer from './userReducer'
 import authReducer from './authReducer'
 import clientsReducer from './clientsReducer'
 import gigsReducer from './gigsReducer'
+import appointmentsReducer from './appointmentsReducer'
 
 const rootReducer = combineReducers({
     user: userReducer,
     authorized: authReducer,
     services: servicesReducer,
     clients: clientsReducer,
-    gigs: gigsReducer
-    // appointments: appointmentsReducer,
+    gigs: gigsReducer,
+    appointments: appointmentsReducer,
     // home: homeReducer
 });
  

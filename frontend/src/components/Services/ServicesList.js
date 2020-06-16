@@ -5,6 +5,7 @@ import { fetchServices } from '../../actions/serviceActions'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import Accordion from 'react-bootstrap/Accordion'
 
 
 
@@ -15,31 +16,14 @@ class ServicesList extends Component {
     componentDidMount(){
         this.props.onFetchServices(userId)
     }
-
-    borderColor = () => {
-
-        const colors = [
-            'primary',
-            'secondary',
-            'success',
-            'danger',
-            'warning',
-            'info',
-            // 'light',
-            'dark',
-          ]
-          let color = colors.pop()
-          colors.unshift(color)
-        return color
-    }
     
 
     renderServices = () => {
         const {match, history} = this.props
-        let bg = this.borderColor()
 
         const subCardStyle = {
-            'width': 'auto',
+            'width': '100%',
+            'margin': '10px'
         }
 
 
@@ -51,12 +35,12 @@ class ServicesList extends Component {
                     text={'info' === 'light' ? 'dark' : 'white'}
                     style={subCardStyle}
                 >
-                    <Card.Header>{service.title}</Card.Header>
-                    <Card.Body>
+                    <Card.Header><ServiceCard service={service} match={match} history={history} /></Card.Header>
+                    {/* <Card.Body>
                     <Card.Text>
                         <ServiceCard service={service} match={match} history={history} /> 
                     </Card.Text>
-                    </Card.Body>
+                    </Card.Body> */}
                 </Card>
 
 
@@ -69,13 +53,13 @@ class ServicesList extends Component {
  
     render() {
         const cardStyle = {
-            'width': '51rem', 
+            'width': '100', 
             'height': 'auto', 
             // 'overflow-y': 'auto'
         }
 
         const containerStyle = {
-            'width': '50rem', 
+            'width': 'auto', 
             'height': '30rem',
             'overflow-y': 'auto',
             'margin': '5px',
@@ -85,19 +69,28 @@ class ServicesList extends Component {
         
         return ( 
             <div>
-                I am the list of services
                 {/* {this.props.services.data && this.renderServices()} */}
-                <Card
-                    bg={'info'}
-                    // key={service.id}
-                    style={cardStyle}
-                    text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
-                >
-                    <Card.Header>Your Services </Card.Header>
-                    <Container style={containerStyle}>
-                        {this.props.services.data && this.renderServices()}
-                    </Container>
-                </Card>
+                <Accordion defaultActionKey="0">
+                    <Card
+                        bg={'info'}
+                        // key={service.id}
+                        border='warning'
+                        style={cardStyle}
+                        text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                    >
+                        {/* <Card.Header> */}
+                            <Accordion.Toggle as={Card.Header} eventKey='0' >
+                                Select A Service 
+                            </Accordion.Toggle>
+                        {/* </Card.Header> */}
+                        <Accordion.Collapse eventKey='0'>
+                            <Container style={containerStyle}>
+                                {this.props.services.data && this.renderServices()}
+                            </Container>
+                        </Accordion.Collapse>
+                    </Card>
+                </Accordion>    
+
             </div>
         )
     }

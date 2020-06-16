@@ -52,10 +52,10 @@ export const patchGigRequest = () => {
     }
 }
 
-export const patchGigSuccess = (service) => {
+export const patchGigSuccess = (gig) => {
     return {
         type: 'PATCH_GIG_SUCCESS',
-        service: service,
+        gig: gig,
     }
 }
 
@@ -66,7 +66,7 @@ export const patchGigFailure = (error) => {
     }
 }
 
-// ----------DELETE SERVICE REQUEST-------  *****************************
+// ----------DELETE GIG REQUEST-------  *****************************
 
 export const deleteGigRequest = () => {
     return {

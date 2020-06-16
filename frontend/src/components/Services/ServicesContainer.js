@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 
 class ServicesContainer extends Component {
@@ -24,19 +25,69 @@ class ServicesContainer extends Component {
 
     render() { 
         const {history, match} = this.props
+        const subCardStyle = {
+            'width': '100',
+            // 'margin': '5px'
+        }
         return (
-            <Container>
+            <Container >
                 <Row>
-                    <Col md={{ span: 10, offset: 3 }}>I am the container of the Services</Col>
+                    <Col md={9}>
+                        <Card 
+                        border='warning'
+                        bg="info"
+                        text={'info' === 'light' ? 'dark' : 'white'}
+                        style={subCardStyle}
+                        >
+                            <Card.Header>Services</Card.Header>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card 
+                            border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}
+                        >
+                            <Card.Header>This Months Earnings: $3,000</Card.Header>
+                        </Card>
+                    </Col>
                 </Row>
+
                 <Row>
-                    <Col md={{ span: 6, offset: 2}} > <ServicesList history={history} match={match} showForm={this.handleClick}/> </Col>
-                </Row>
+                    <Col md={9}  >
+                        <ServicesList history={history} match={match} showForm={this.handleClick}/>
+                    </Col>
+                    <Col>
+                        <Card 
+                            border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}
+                        >
+                            <Card.Header>Total Earnings: $3,000</Card.Header>
+                        </Card>
+                    </Col>
+                </Row> 
+ 
                 <div>
                 <Button size='sm' variant='outline-warning' onClick={this.handleClick}>+</Button>
                     {this.state.form && <NewServiceForm handleClick={this.handleClick}/>}
-                
                 </div>
+                <Row>
+                    <Col>
+                        <Row className="#ofGigsForService">
+                            ofGigsForService
+                        </Row>
+                        <Row className="totalEarnedVsProjectedForService">
+                            totalEarnedVsProjectedForService
+                        </Row>
+                        <Row className="AverageMonthlyIncomeFromService">
+                            AverageMonthlyIncomeFromService
+                        </Row>
+
+                    </Col>
+                </Row>
             </Container>
             
         )

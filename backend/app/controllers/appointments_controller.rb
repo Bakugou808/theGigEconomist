@@ -12,7 +12,7 @@ class AppointmentsController < ApplicationController
     end 
 
     def create 
-        
+        byebug
         @appointment = Appointment.new(appointment_params)
         if @appointment.save 
             render json: @appointment

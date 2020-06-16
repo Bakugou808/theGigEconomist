@@ -19,7 +19,7 @@ class GigsList extends Component {
         return (
         <div onClick={()=>onSelectGig(gig)}>
             <span>{gig.title}</span>
-            <span>{gig.details}</span>
+            <span>{gig.client.company_name}</span>
             <span>{gig.created_at}</span>
             <span>{gig.completed}</span>
             {/* {`${gig.title} ${gig.details} ${gig.created_at} ${gig.completed}`} */}
