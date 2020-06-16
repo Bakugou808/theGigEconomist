@@ -18,6 +18,7 @@ import ModalFooter from 'react-bootstrap/ModalFooter'
 
 export default class AppointmentContainer extends Component {
 
+  
     state = {
         form: false,
     }
@@ -31,7 +32,20 @@ export default class AppointmentContainer extends Component {
             <div>
                 <AppointmentsList />
                 <Button onClick={this.showForm}>+ Appointment</Button>
-                {this.state.form && <AppointmentForm closeForm={this.showForm}/>}
+   
+                    <Modal show={this.state.form} onHide={this.showForm}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Appointment Form</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <AppointmentForm closeForm={this.showForm}/>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant='warning' onClick={this.showForm}>
+                                Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
             </div>
         )
     }

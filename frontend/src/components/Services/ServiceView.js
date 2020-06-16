@@ -37,13 +37,31 @@ class ServiceView extends Component {
     render() { 
         const {service} = this.props.location.state
         const {thisService} = this.props
+        const cardStyle = {
+            "margin": '10px',
+        }
         return (
 
             <Container>
                 <Row>
                     <Col md={9}>
-                        <Card>
-                            <Card.Header>{`${thisService.title}        ${thisService.client}          ${thisService.pay_range}`} </Card.Header>
+                        <Card 
+                            bg={'info'}
+                            // key={service.id}
+                            border='warning'
+                            style={cardStyle}
+                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                        >
+                            <Card.Header>
+                                <Container>
+                                    <Row>
+                                    <Col>{thisService.title}</Col>
+                                    <Col>Desc: {thisService.description}</Col>
+                                    <Col>Pay-Range: {thisService.pay_range}</Col>
+                                    </Row>
+
+                                </Container>
+                                </Card.Header>
                         </Card>
                     </Col>
                     <Col>
@@ -54,7 +72,13 @@ class ServiceView extends Component {
                 </Row>
                 <Row>
                     <Col md={9}>
-                        <Card>
+                        <Card
+                            bg={'info'}
+                            // key={service.id}
+                            border='warning'
+                            style={cardStyle}
+                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                        >
                             <Card.Header>Gigs for {thisService.title}</Card.Header>
                             <GigsList gigs={this.props.location.state.service.gigs} />
                         </Card>
@@ -70,7 +94,13 @@ class ServiceView extends Component {
                     <Container>
                         <Row>
                             <Col md={12}>
-                                <Card>
+                                <Card
+                                    bg={'info'}
+                                    // key={service.id}
+                                    border='warning'
+                                    style={cardStyle}
+                                    text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                                >
                                     <Row>
                                         <Col md={9}>
                                             <Card.Body>{this.props.selectedGig && <GigView />}</Card.Body>
@@ -84,7 +114,13 @@ class ServiceView extends Component {
                                     </Row>
                                         <Row>
                                             <Col>
-                                                <Card>
+                                                <Card
+                                                    bg={'info'}
+                                                    // key={service.id}
+                                                    border='warning'
+                                                    style={cardStyle}
+                                                    text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                                                >
                                                     Appointments Component
                                                     <AppointmentContainer />
                                                 </Card>

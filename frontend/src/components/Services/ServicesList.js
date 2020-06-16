@@ -27,7 +27,7 @@ class ServicesList extends Component {
         }
 
 
-        return this.props.services.data.map(service => {
+        return this.props.services.data.map(service => { 
             return (
                 <Card 
                     border='warning'
@@ -66,6 +66,10 @@ class ServicesList extends Component {
             '.scrollbar-width': 'thin',
             '.scrollbar-color': 'yellow'
         }
+
+        const titleStyle = {
+            "cursor": 'pointer'
+        }
         
         return ( 
             <div>
@@ -80,7 +84,7 @@ class ServicesList extends Component {
                     >
                         {/* <Card.Header> */}
                             <Accordion.Toggle as={Card.Header} eventKey='0' >
-                                Select A Service 
+                                <Card.Title style={titleStyle}>Select A Service</Card.Title> 
                             </Accordion.Toggle>
                         {/* </Card.Header> */}
                         <Accordion.Collapse eventKey='0'>

@@ -2,13 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { selectGig, setGigsForService } from '../../actions/gigActions'
 import { AuthHOC } from '../HOCs/AuthHOC'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import Modal from 'react-bootstrap/Modal'
 
 class GigsList extends Component {
 
 
     componentDidMount(){
         const {onSetGigsForService} = this.props
-        onSetGigsForService(this.props.gigs)
+        onSetGigsForService(this.props.gigs) 
     }
 
     renderGigs = () => {
@@ -16,14 +22,29 @@ class GigsList extends Component {
          
         
     return this.props.gigList.map(gig=> {
+        const cardStyle = {
+            "margin": '10px',
+        }
         return (
-        <div onClick={()=>onSelectGig(gig)}>
-            <span>{gig.title}</span>
-            <span>{gig.client.company_name}</span>
-            <span>{gig.created_at}</span>
-            <span>{gig.completed}</span>
-            {/* {`${gig.title} ${gig.details} ${gig.created_at} ${gig.completed}`} */}
-        </div>
+            <Card
+                bg={'info'}
+                // key={service.id}
+                border='warning'
+                style={cardStyle}
+                text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                onClick={()=>onSelectGig(gig)}
+            >
+                <Card.Header>
+                    <Container>
+                        <Row>
+                            <Col>{gig.title}</Col>
+                            <Col>{gig.client.company_name}</Col>
+                            <Col>{gig.created_at}</Col>
+                            <Col>{gig.completed}</Col>
+                        </Row>
+                    </Container>
+                </Card.Header>
+            </Card>
         )
     })
     }

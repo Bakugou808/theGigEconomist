@@ -4,7 +4,7 @@ import { Redirect } from 'react-router'
 
 
 import { connect } from 'react-redux'
-import { deleteService } from '../../actions/serviceActions'
+import { deleteService } from '../../actions/serviceActions' 
 import { selectService } from '../../actions/serviceActions'
 
 import { setGigsForService } from '../../actions/gigActions'
@@ -28,8 +28,12 @@ class ServiceCard extends Component {
         this.setState(prev => ({edit: !prev.edit}))
     }
 
-    handleView = () => {
+    handleRedirect = () => {
         this.setState(prev => ({redirect: !prev.redirect}))
+    }
+    
+    handleView = () => {
+        this.props.onSelectService(this.props.service)
     }
     
     
@@ -43,7 +47,8 @@ class ServiceCard extends Component {
        }
 
        const titleStyle = {
-           "font-size": '23px'
+           "font-size": '23px',
+           'cursor': 'pointer'
        }
 
        const cardStyle = {
@@ -63,10 +68,9 @@ class ServiceCard extends Component {
 
             <div style={cardStyle}>
                 <Container>
-                    <Row> 
-                        <Col><div style={titleStyle} onDoubleClick={this.handleView} onClick={this.showStats}>{service.title}</div></Col>
-                    </Row>
+
                     <Row >
+                        <Col><div style={titleStyle} onClick={this.handleView} onDoubleClick={this.handleRedirect} >{service.title}</div></Col>
                         <Col>{`Pay Range: ${service.pay_range}`}</Col>
                         <Col>{`Description: ${service.description}`}</Col>
                         <Col md={{ span: 3, offset: 1 }} >

@@ -31,7 +31,7 @@ class GigForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         if(this.state.edit){
-            // this.props.onPatchGig(this.state.fields, this.props.service.id)
+            this.props.onPatchGig(this.state.fields, this.props.service.id)
         }else{
             this.props.onPostNewGig(this.state.fields)
         }
