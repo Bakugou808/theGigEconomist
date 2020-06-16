@@ -16,10 +16,21 @@ import ModalFooter from 'react-bootstrap/ModalFooter'
 
      render() {
          const {appointment} = this.props
+         const cardStyle = {
+            "margin": '10px',
+        }
+        const titleStyle = {
+           "width": 'auto'
+        }
          return (
              <div>
-                 <Container>
-                     <Col>
+                 <Card bg={'info'}
+                  // key={service.id}
+                  border='warning'
+                  style={cardStyle}
+                  text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
+                    <Row border='warning'>
+                    <Col style={titleStyle}>
                         {appointment.title}
                      </Col>
                      <Col>
@@ -40,7 +51,9 @@ import ModalFooter from 'react-bootstrap/ModalFooter'
                      <Col>
                         {appointment.duration}
                      </Col>
-                 </Container>
+                    </Row>
+                     
+                 </Card >
              </div>
          )
      }

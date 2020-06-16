@@ -36,40 +36,13 @@ class ServiceView extends Component {
 
     render() { 
         const {service} = this.props.location.state
-        const {thisService} = this.props
+        const {thisService, selectedGig} = this.props
         const cardStyle = {
             "margin": '10px',
         }
         return (
 
             <Container>
-                <Row>
-                    <Col md={9}>
-                        <Card 
-                            bg={'info'}
-                            // key={service.id}
-                            border='warning'
-                            style={cardStyle}
-                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
-                        >
-                            <Card.Header>
-                                <Container>
-                                    <Row>
-                                    <Col>{thisService.title}</Col>
-                                    <Col>Desc: {thisService.description}</Col>
-                                    <Col>Pay-Range: {thisService.pay_range}</Col>
-                                    </Row>
-
-                                </Container>
-                                </Card.Header>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card>
-                            <Card.Header>total made this month</Card.Header>
-                        </Card>
-                    </Col>
-                </Row>
                 <Row>
                     <Col md={9}>
                         <Card
@@ -79,16 +52,41 @@ class ServiceView extends Component {
                             style={cardStyle}
                             text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                         >
-                            <Card.Header>Gigs for {thisService.title}</Card.Header>
-                            <GigsList gigs={this.props.location.state.service.gigs} />
+                            <GigsList gigs={this.props.location.state.service.gigs} service={service} />
                         </Card>
+                        
                     </Col>
                     <Col>
+                        <Card>
+                            <Card.Header>total made this month</Card.Header>
+                        </Card>
                         <Card>
                             <Card.Text>Total Earnings for service to Date</Card.Text>
                             <Card.Text>Projected Earnings for service</Card.Text>
                         </Card>
                     </Col>
+                </Row>
+                <Row>
+                    <Col md={12}>
+                   <Card 
+                            bg={'info'}
+                            // key={service.id}
+                            border='warning'
+                            style={cardStyle}
+                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                        >
+                            <Card.Header>
+                                {!selectedGig.title ? <Row><Card.Title>`*******************`</Card.Title></Row> : <Container>
+                                    <Row>
+                                    <Col><Card.Title>{selectedGig.title}</Card.Title></Col>
+                                    <Col>Client: {selectedGig.client && selectedGig.client.company_name}</Col>
+                                    <Col>Contact: {selectedGig.client && selectedGig.client.contact_name}</Col>
+                                    </Row>
+                                </Container>}
+                            </Card.Header>
+                        </Card>
+                    </Col>
+
                 </Row>
                 <Row>
                     <Container>
@@ -101,9 +99,9 @@ class ServiceView extends Component {
                                     style={cardStyle}
                                     text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                                 >
-                                    <Row>
+                                    {!selectedGig.title ? `*********************` : <Row>
                                         <Col md={9}>
-                                            <Card.Body>{this.props.selectedGig && <GigView />}</Card.Body>
+                                            <Card.Body><GigView /></Card.Body>
                                         </Col>
                                         <Col>
                                             <Card>
@@ -111,8 +109,8 @@ class ServiceView extends Component {
                                                 <Card.Text>Projected Earnings for gig</Card.Text>
                                             </Card>
                                         </Col>
-                                    </Row>
-                                        <Row>
+                                    </Row>}
+                                    {!selectedGig.title ? `*********************` : <Row>
                                             <Col>
                                                 <Card
                                                     bg={'info'}
@@ -125,7 +123,7 @@ class ServiceView extends Component {
                                                     <AppointmentContainer />
                                                 </Card>
                                             </Col>
-                                        </Row>
+                                        </Row>}
                                 </Card>
                             </Col>
                         </Row>

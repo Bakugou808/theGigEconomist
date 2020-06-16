@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Modal from 'react-bootstrap/Modal'
+import Accordion from 'react-bootstrap/Accordion'
 
 class GigsList extends Component {
 
@@ -51,9 +52,47 @@ class GigsList extends Component {
 
 
     render() {
+        const cardStyle = {
+            'width': '100', 
+            'height': 'auto', 
+            'margin':'10px'
+            // 'overflow-y': 'auto'
+        }
+
+        const containerStyle = {
+            'width': 'auto', 
+            'height': '20rem',
+            'overflow-y': 'auto',
+            'margin': '5px',
+            '.scrollbar-width': 'thin',
+            '.scrollbar-color': 'yellow'
+        }
+
+        const titleStyle = {
+            "cursor": 'pointer'
+        }
         return (
             <div>
-                {this.renderGigs()}
+                <Accordion defaultActionKey="0">
+                    <Card
+                        bg={'info'}
+                        // key={service.id}
+                        border='warning'
+                        style={cardStyle}
+                        text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                    >
+                        {/* <Card.Header> */}
+                            <Accordion.Toggle as={Card.Header} eventKey='0' >
+                                <Card.Title style={titleStyle}>Gigs for {this.props.service.title}</Card.Title> 
+                            </Accordion.Toggle>
+                        {/* </Card.Header> */}
+                        <Accordion.Collapse eventKey='0'>
+                            <Container style={containerStyle}>
+                                {this.renderGigs()}
+                            </Container>
+                        </Accordion.Collapse>
+                    </Card>
+                </Accordion>  
             </div>
         )
     }

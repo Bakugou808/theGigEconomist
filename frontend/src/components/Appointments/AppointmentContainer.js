@@ -33,7 +33,7 @@ export default class AppointmentContainer extends Component {
                 <AppointmentsList />
                 <Button onClick={this.showForm}>+ Appointment</Button>
    
-                    <Modal show={this.state.form} onHide={this.showForm}>
+                    <Modal show={this.state.form} onHide={this.showForm} size='lg'>
                         <Modal.Header closeButton>
                             <Modal.Title>Appointment Form</Modal.Title>
                         </Modal.Header>
