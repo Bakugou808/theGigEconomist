@@ -94,7 +94,7 @@ export const deleteGigFailure = (error) => {
 export const setGigsForService = (gigList) => {
     return {
         type: 'SET_GIGS_FOR_SERVICE',
-        gigList: gigList
+        gigList: gigList 
     }    
 }
 

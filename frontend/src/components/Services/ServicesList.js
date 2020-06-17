@@ -60,7 +60,7 @@ class ServicesList extends Component {
 
         const containerStyle = {
             'width': 'auto', 
-            'height': '30rem',
+            'height': 'auto',
             'overflow-y': 'auto',
             'margin': '5px',
             '.scrollbar-width': 'thin',
@@ -84,7 +84,7 @@ class ServicesList extends Component {
                     >
                         {/* <Card.Header> */}
                             <Accordion.Toggle as={Card.Header} eventKey='0' >
-                                <Card.Title style={titleStyle}>Select A Service</Card.Title> 
+                                <Card.Title style={titleStyle}>Select A Service </Card.Title> 
                             </Accordion.Toggle>
                         {/* </Card.Header> */}
                         <Accordion.Collapse eventKey='0'>

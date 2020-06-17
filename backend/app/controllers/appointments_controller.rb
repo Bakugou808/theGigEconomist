@@ -12,7 +12,7 @@ class AppointmentsController < ApplicationController
     end 
 
     def create 
-        byebug
+        
         @appointment = Appointment.new(appointment_params)
         if @appointment.save 
             render json: @appointment
@@ -22,15 +22,19 @@ class AppointmentsController < ApplicationController
     end 
 
     def update 
+        
         if @appointment.update(appointment_params)
+            
             render json: @appointment 
         # else 
         end 
     end 
 
     def destroy 
+        
+        id = @appointment.id
         @appointment.destroy 
-        render json: "appointment Deleted"
+        render json: id
     end 
 
 
@@ -42,6 +46,6 @@ class AppointmentsController < ApplicationController
     end 
 
     def appointment_params
-        params.permit(:gig_id, :title, :date_of_appointment, :time_of_appointment, :location, :duration, :payment_amount, :notes)
+        params.permit(:gig_id, :title, :date_of_appointment, :time_of_appointment, :location, :end_of_appointment, :payment_amount, :notes, :completed)
     end 
 end

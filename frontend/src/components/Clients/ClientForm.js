@@ -41,9 +41,12 @@ class ClientForm extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault()
+        this.setState(prev=>({fields: {...prev.fields, company_name: prev.fields.company_name.trim(), contact_name: prev.fields.contact_name.trim()}}))
+
         if(this.state.edit){
             this.props.onPatchClient(this.state.fields, this.props.client.id)
         }else {
+            
             this.props.onPostNewClient(this.state.fields)
         }
         this.props.handleClick()

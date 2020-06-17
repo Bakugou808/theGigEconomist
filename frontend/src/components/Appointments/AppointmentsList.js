@@ -17,16 +17,22 @@ import ModalFooter from 'react-bootstrap/ModalFooter'
  
 class AppointmentsList extends Component {
 
-    renderAppointments = () => {
-        const {appointments} = this.props
-        return appointments.map(appointment => <AppointmentView appointment={appointment}/>)
+    renderCompletedAppointments = () => {
+        const {appointments, closeForm} = this.props
+        return appointments.completed.map(appointment => <AppointmentView  appointment={appointment}/>)
     }
     
+    renderIncompleteAppointments = () => {
+        const {appointments, closeForm} = this.props
+        return appointments.incomplete.map(appointment => <AppointmentView  appointment={appointment}/>)
+    }
 
      render() {
+         const {appointments} = this.props
          return (
              <div>
-                 {this.renderAppointments()}
+                 {appointments.incomplete && this.renderIncompleteAppointments()}
+                 {appointments.completed && this.renderCompletedAppointments()}
              </div>
          )
      }

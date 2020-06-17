@@ -36,12 +36,14 @@ class ServicesContainer extends Component {
             // 'margin': '5px'
         }
         return (
+            
             <Container >
                 <Row> 
                     <Col md={9}>
 
-                        <ServicesList history={history} match={match} showForm={this.handleClick}/>
+                        <ServicesList history={history} match={match} handleClick={this.handleClick} showForm={this.handleClick}/>
                     </Col>
+                    
                     <Col>
                         <Card 
                             border='info'
@@ -56,18 +58,19 @@ class ServicesContainer extends Component {
 
                 <Row>
                     <Col md={9}  >
-                        <Card 
+                    <Button size='sm' variant='outline-warning' onClick={this.handleClick}>+</Button>
+
+                        {/* <Card 
                         border='warning'
                         bg="info"
                         text={'info' === 'light' ? 'dark' : 'white'}
                         style={subCardStyle}
-                        >
-                            <Card.Header>Service</Card.Header>
+                        > */}
+                            {/* <Card.Header>Service</Card.Header> */}
                             {this.props.selectedService.id && <Card border='warning' bg="info"
                                 text={'info' === 'light' ? 'dark' : 'white'}
                                 style={subCardStyle}><ServiceCard service={this.props.selectedService} match={match} history={history} /></Card>}
-                        </Card>
-                       
+                        {/* </Card> */}
                     </Col>
                     <Col>
                         <Card 
@@ -78,11 +81,12 @@ class ServicesContainer extends Component {
                         >
                             <Card.Header>Total Earnings: $3,000</Card.Header>
                         </Card>
+                        
                     </Col>
                 </Row> 
  
                 <div>
-                <Button size='sm' variant='outline-warning' onClick={this.handleClick}>+</Button>
+               
                     {/* {this.state.form && <NewServiceForm handleClick={this.handleClick}/>} */}
                     {this.state.form && <Modal show={this.state.form} onHide={this.handleClick}>
                         <Modal.Header closeButton>

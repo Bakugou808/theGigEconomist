@@ -20,8 +20,24 @@ class AppointmentForm extends Component {
             time_of_appointment: '',
             notes: '',
             location: '',
-            duration: '',
+            end_of_appointment: '',
             gig_id: ''
+        }
+    }
+
+    componentDidMount(){
+        if(this.props.appointment){
+            const {appointment} = this.props 
+            this.setState({edit: true, fields: {
+                title: appointment.title,
+                date_of_appointment: appointment.date_of_appointment, 
+                payment_amount: appointment.payment_amount, 
+                time_of_appointment: appointment.time_of_appointment,
+                notes: appointment.notes,
+                location: appointment.location,
+                end_of_appointment: appointment.end_of_appointment,
+                gig_id: appointment.gig_id,
+            }})
         }
     }
 
@@ -33,16 +49,23 @@ class AppointmentForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.onPostNewAppointment(this.state.fields)
-        this.props.closeForm()
+        if(!this.state.edit){
+            this.props.onPostNewAppointment(this.state.fields)
+            this.props.closeForm()
+        } else {
+            this.props.onPatchAppointment(this.state.fields, this.props.appointment.id)
+            this.props.closeForm()
+
+        }
+        
     }
 
     render() {
-        const {title, date_of_appointment, payment_amount, time_of_appointment, notes, location, duration, gig_id} = this.props
+        const {title, date_of_appointment, payment_amount, time_of_appointment, notes, location, end_of_appointment, gig_id} = this.props
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Row>
+                    <Form.Row> 
                         <Form.Group as={Col} controlId="formGridTitle">
                             <Form.Label>Title</Form.Label>
                             <Form.Control type='text' required onChange={this.handleChange} name='title' value={title} placeholder='Enter Title' />
@@ -62,12 +85,12 @@ class AppointmentForm extends Component {
                             <Form.Control type='date' required onChange={this.handleChange} name='date_of_appointment' value={date_of_appointment} placeholder='Enter Date' />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridTime">
-                            <Form.Label>Time of Appointment</Form.Label>
+                            <Form.Label>Start of Appointment</Form.Label>
                             <Form.Control type='time' required onChange={this.handleChange} name='time_of_appointment' value={time_of_appointment} placeholder='Enter Time' />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGridDuration">
-                            <Form.Label>Duration of Appointment</Form.Label>
-                            <Form.Control type='time' required onChange={this.handleChange} name='duration' value={duration} placeholder='Hrs:Min' />
+                        <Form.Group as={Col} controlId="formGridEndTime">
+                            <Form.Label>End of Appointment</Form.Label>
+                            <Form.Control type='time' required onChange={this.handleChange} name='end_of_appointment' value={end_of_appointment} placeholder='Hrs:Min' />
                         </Form.Group>
                     </Form.Row>
                     <Form.Group as={Col} controlId="FormGridNotes">

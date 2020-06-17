@@ -59,7 +59,7 @@ const gigsReducer = (state=initialState, action) => {
 // ----------PATCH GIG-------  *****************************
 
         case 'PATCH_GIG_REQUEST':
-            return {
+            return { 
                 ...state,
                 fetching: true
             }
@@ -77,7 +77,8 @@ const gigsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 fetching: false, 
-                allGigs: [...[...state.allGigs.filter(gig => gig.id != action.gig.id)], action.gig]
+                allGigs: [...[...state.allGigs.filter(gig => gig.id != action.gig.id)], action.gig],
+                gigsForService: [...[...state.gigsForService.filter(gig => gig.id != action.gig.id)], action.gig]
             } 
 
 // ----------DELETE GIG-------  *****************************
@@ -99,7 +100,8 @@ const gigsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 fetching: false, 
-                allGigs: state.allGigs.filter(gig => gig.id != action.gigId)
+                allGigs: state.allGigs.filter(gig => gig.id != action.gigId),
+                gigsForService: state.gigsForService.filter(gig => gig.id != action.gigId)
             } 
 
 // ----------SET GIGS FOR SERVICE-------  *****************************
@@ -109,7 +111,7 @@ const gigsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 gigsForService: action.gigList
-            }
+            } 
 
         case 'SET_GIG_FOR_VIEW':
             return {

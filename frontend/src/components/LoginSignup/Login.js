@@ -21,8 +21,9 @@ class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
-        this.props.onFetchUser(this.state.fields)
+        let history = this.props.history
+        this.props.onFetchUser(this.state.fields, history)
+        debugger
         this.props.history.push('/home')
 
         // return <Redirect to='/home'/>
@@ -43,7 +44,7 @@ class Login extends Component {
         const {username, password} = this.state.fields
         return (
             <div>
-                 {this.props.error ? <h1>Try again...</h1> : null}
+                 {this.props.error ? alert(`Sorry, that Login didn't work, try again...`) : null}
                 <form className="login-form" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                       <label>Username</label>
@@ -69,7 +70,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchUser: (userSignInData)=> fetchUser(userSignInData, dispatch), 
+    onFetchUser: (userSignInData, history)=> fetchUser(userSignInData, history, dispatch), 
     // the above is for api/async calls 
     // onChangeData: (newData) => dispatch(dataChangeAction(newData))   ---> this is for normal state changes, dispatch the outcome of an action creator, just to modify state
   }

@@ -17,12 +17,12 @@ class GigView extends Component {
             <Container>
                 <Row>
                     <Col>
-                    {this.props.gig.title}
+                    Title: {this.props.gig.title}
                     </Col>
                     <Col>
-                    payment Amount:
+                    Total Payment Amount: summate from appointments
                     </Col>
-                    <Col>Completed: {this.props.gig.completed}</Col>
+                    <Col>Completed: {this.props.gig.completed ? 'Yes' : 'No'}</Col>
                 </Row>
                 <Row>
                     <Col>

@@ -5,6 +5,7 @@ import GigsList from '../Gigs/GigsList'
 import GigView from '../Gigs/GigView'
 import GigForm from '../Gigs/GigForm'
 import AppointmentContainer from '../Appointments/AppointmentContainer'
+import {fetchService} from '../../actions/serviceActions'
 
 
 import Container from 'react-bootstrap/Container'
@@ -17,6 +18,7 @@ import ModalDialog from 'react-bootstrap/ModalDialog'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import ModalFooter from 'react-bootstrap/ModalFooter'
+import { setGigsForService } from '../../actions/gigActions'
 
 
 class ServiceView extends Component {
@@ -27,6 +29,14 @@ class ServiceView extends Component {
 
     }
     
+    componentDidMount(){
+        const {match, onFetchService, onSetGigsForService, thisService} = this.props
+        let serviceId = match.params.serviceId
+        
+        onFetchService(serviceId)
+        // onSetGigsForService(thisService.gigs)
+
+    }
 
     addGig = () => {
         this.setState(prev => ({new_gig: !prev.new_gig}))
@@ -40,6 +50,10 @@ class ServiceView extends Component {
         const cardStyle = {
             "margin": '10px',
         }
+        const gigListStyle = {
+            "margin": '10px',
+            'height': 'auto'
+        }
         return (
 
             <Container>
@@ -49,18 +63,26 @@ class ServiceView extends Component {
                             bg={'info'}
                             // key={service.id}
                             border='warning'
-                            style={cardStyle}
+                            style={gigListStyle}
                             text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                         >
-                            <GigsList gigs={this.props.location.state.service.gigs} service={service} />
+                            <GigsList gigs={this.props.gigs} service={service} />
                         </Card>
                         
                     </Col>
                     <Col>
-                        <Card>
+                        <Card bg={'warning'}
+                            // key={service.id}
+                            border='info'
+                            style={gigListStyle}
+                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
                             <Card.Header>total made this month</Card.Header>
                         </Card>
-                        <Card>
+                        <Card bg={'warning'}
+                            // key={service.id}
+                            border='info'
+                            style={gigListStyle}
+                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
                             <Card.Text>Total Earnings for service to Date</Card.Text>
                             <Card.Text>Projected Earnings for service</Card.Text>
                         </Card>
@@ -68,7 +90,9 @@ class ServiceView extends Component {
                 </Row>
                 <Row>
                     <Col md={12}>
-                   <Card 
+                    <Button style={cardStyle} variant='info' onClick={this.addGig}>+</Button>
+
+                    {selectedGig.title && <Card 
                             bg={'info'}
                             // key={service.id}
                             border='warning'
@@ -76,15 +100,15 @@ class ServiceView extends Component {
                             text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                         >
                             <Card.Header>
-                                {!selectedGig.title ? <Row><Card.Title>`*******************`</Card.Title></Row> : <Container>
+                                <Container>
                                     <Row>
                                     <Col><Card.Title>{selectedGig.title}</Card.Title></Col>
                                     <Col>Client: {selectedGig.client && selectedGig.client.company_name}</Col>
                                     <Col>Contact: {selectedGig.client && selectedGig.client.contact_name}</Col>
                                     </Row>
-                                </Container>}
+                                </Container>
                             </Card.Header>
-                        </Card>
+                        </Card>}
                     </Col>
 
                 </Row>
@@ -92,25 +116,29 @@ class ServiceView extends Component {
                     <Container>
                         <Row>
                             <Col md={12}>
-                                <Card
+                            {selectedGig.title && <Card
                                     bg={'info'}
                                     // key={service.id}
                                     border='warning'
                                     style={cardStyle}
                                     text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                                 >
-                                    {!selectedGig.title ? `*********************` : <Row>
+                                     <Row>
                                         <Col md={9}>
                                             <Card.Body><GigView /></Card.Body>
                                         </Col>
                                         <Col>
-                                            <Card>
-                                                <Card.Text>Total Earnings for gig to Date</Card.Text>
-                                                <Card.Text>Projected Earnings for gig</Card.Text>
+                                            <Card bg={'warning'}
+                                                // key={service.id}
+                                                border='info'
+                                                style={cardStyle}
+                                                text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
+                                                <Card.Text style={cardStyle}>Total Earnings for gig to Date</Card.Text>
+                                                <Card.Text style={cardStyle}>Projected Earnings for gig</Card.Text>
                                             </Card>
                                         </Col>
-                                    </Row>}
-                                    {!selectedGig.title ? `*********************` : <Row>
+                                    </Row>
+                                    <Row>
                                             <Col>
                                                 <Card
                                                     bg={'info'}
@@ -119,16 +147,15 @@ class ServiceView extends Component {
                                                     style={cardStyle}
                                                     text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                                                 >
-                                                    Appointments Component
                                                     <AppointmentContainer />
                                                 </Card>
                                             </Col>
-                                        </Row>}
-                                </Card>
+                                        </Row>
+                                </Card>}
                             </Col>
                         </Row>
                     </Container>
-                    <Button variant='info' onClick={this.addGig}>+</Button>
+                    
 
                     <Modal show={this.state.new_gig} onHide={this.addGig}> 
                         <Modal.Header closeButton>
@@ -155,14 +182,15 @@ const mapStateToProps = (store) => {
     return { 
         services: store.services,
         thisService: store.services.selectedService,
-        gigs: store.gigs,
+        gigs: store.gigs.gigsForService,
         selectedGig: store.gigs.selectedGig,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // onFetchServices: (userId) => fetchServices(userId, dispatch)
+        onFetchService: (serviceId) => fetchService(serviceId, dispatch),
+        onSetGigsForService: (gigList) => dispatch(setGigsForService(gigList))
     }
 }
 

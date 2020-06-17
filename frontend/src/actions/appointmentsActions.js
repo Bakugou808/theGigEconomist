@@ -19,6 +19,28 @@ export const fetchAppointmentsFailure = (error) => {
         error: error,
     }
 }
+// ----------FETCH SINGLE APPOINTMENT REQUEST-------  *****************************
+
+
+export const fetchAppointmentRequest = () => {
+    return {
+        type: 'FETCH_APPOINTMENT_REQUEST'
+    }
+}
+
+export const fetchAppointmentSuccess = (appointment) => {
+    return {
+        type: 'FETCH_APPOINTMENT_SUCCESS',
+        appointment: appointment,
+    }
+}
+
+export const fetchAppointmentFailure = (error) => {
+    return {
+        type: 'FETCH_APPOINTMENT_FAILURE',
+        error: error,
+    }
+}
 
 
 // ----------POST APPOINTMENT REQUEST-------  *****************************
@@ -49,7 +71,7 @@ export const postAppointmentFailure = (error) => {
 export const patchAppointmentRequest = () => {
     return {
         type: 'PATCH_APPOINTMENT_REQUEST'
-    }
+    } 
 }
 
 export const patchAppointmentSuccess = (appointment) => {
@@ -91,7 +113,7 @@ export const deleteAppointmentFailure = (error) => {
 
 // ----------SET APPOINTMENTS FOR GIG-------  *****************************
 
-export const setAppoinhtmentsForGig = (appointmentList) => {
+export const setAppointmentsForGig = (appointmentList) => {
     return {
         type: 'SET_APPOINTMENTS_FOR_SERVICE',
         appointmentList: appointmentList
@@ -127,7 +149,22 @@ export const fetchAppointments = (userId, dispatch) => {
             }) 
 }
 
-// ----------ADD APPOINTMENT-------  *****************************
+// --------FETCH SINGLE APPOINTMENT---------  ********************************
+
+export const fetchAppointment = (appointmentId, dispatch) => {
+    dispatch(fetchAppointmentRequest())
+    fetch(`http://localhost:3000/appointments/${appointmentId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchAppointmentFailure(data.error))
+            } else {
+                dispatch(fetchAppointmentSuccess(data))
+            }
+        }) 
+}
+
+// ----------POST APPOINTMENT-------  *****************************
 
 
 export const postNewAppointment = (appointmentData, dispatch) => {
@@ -139,6 +176,7 @@ export const postNewAppointment = (appointmentData, dispatch) => {
     })
         .then(res=>res.json())
         .then(data => {
+            
             if (data.error){
                 console.log(data)
                 dispatch(postAppointmentFailure(data.error))
@@ -146,6 +184,7 @@ export const postNewAppointment = (appointmentData, dispatch) => {
                 console.log(data)
 
                 dispatch(postAppointmentSuccess(data))
+                // dispatch( )
             }
         }) 
 }
@@ -164,6 +203,7 @@ export const patchAppointment = (appointmentData, appointmentId, dispatch) => {
             if (data.error){
                 dispatch(patchAppointmentFailure(data.error))
             } else {
+                console.log(data)
                 dispatch(patchAppointmentSuccess(data))
             }
         }) 

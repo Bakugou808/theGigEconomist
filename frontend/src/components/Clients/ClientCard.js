@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { deleteClient } from '../../actions/clientActions'
 import ClientForm from './ClientForm'
+import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs'
+
 
 class ClientCard extends Component {
 
@@ -23,8 +25,8 @@ class ClientCard extends Component {
                 <span>{client.email}</span>
                 <span>{client.cell}</span>
                 <span>{client.venmo}</span>
-                <span onClick={()=>this.props.onDeleteClient(client.id)}>X</span>
-                <button onClick={this.handleClick}>Edit Client</button>
+                <span onClick={()=>this.props.onDeleteClient(client.id)}><BsFillTrashFill/></span>
+                <button onClick={this.handleClick}><BsPencilSquare/></button>
                 {this.state.edit && <ClientForm client={client} handleClick={this.handleClick}/> }
             </div>
         )

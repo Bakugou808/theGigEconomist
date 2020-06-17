@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { selectGig, setGigsForService } from '../../actions/gigActions'
+import { selectGig, setGigsForService, deleteGig, patchGig } from '../../actions/gigActions'
+import GigCard from './GigCard'
 import { AuthHOC } from '../HOCs/AuthHOC'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -12,42 +13,21 @@ import Accordion from 'react-bootstrap/Accordion'
 
 class GigsList extends Component {
 
+    state = {
+        edit: false,
+    }
 
     componentDidMount(){
         const {onSetGigsForService} = this.props
         onSetGigsForService(this.props.gigs) 
     }
 
+
     renderGigs = () => {
-        const {gigList, onSelectGig} = this.props
+        const {gigList } = this.props
          
         
-    return this.props.gigList.map(gig=> {
-        const cardStyle = {
-            "margin": '10px',
-        }
-        return (
-            <Card
-                bg={'info'}
-                // key={service.id}
-                border='warning'
-                style={cardStyle}
-                text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
-                onClick={()=>onSelectGig(gig)}
-            >
-                <Card.Header>
-                    <Container>
-                        <Row>
-                            <Col>{gig.title}</Col>
-                            <Col>{gig.client.company_name}</Col>
-                            <Col>{gig.created_at}</Col>
-                            <Col>{gig.completed}</Col>
-                        </Row>
-                    </Container>
-                </Card.Header>
-            </Card>
-        )
-    })
+    return gigList.map(gig=> <GigCard gig={gig}/>)
     }
 
 
@@ -61,7 +41,7 @@ class GigsList extends Component {
 
         const containerStyle = {
             'width': 'auto', 
-            'height': '20rem',
+            'height': 'auto',
             'overflow-y': 'auto',
             'margin': '5px',
             '.scrollbar-width': 'thin',
@@ -108,8 +88,9 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return {
        onSelectGig: (gig) => dispatch(selectGig(gig)),
-       onSetGigsForService: (gigs) => dispatch(setGigsForService(gigs))
-
+       onSetGigsForService: (gigs) => dispatch(setGigsForService(gigs)),
+       onDeleteGig: (gigId) => deleteGig(gigId, dispatch),
+       onPatchGig: (gigData, gigId) => patchGig(gigData, gigId, dispatch)
     }
 }
 

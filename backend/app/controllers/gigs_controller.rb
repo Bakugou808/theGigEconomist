@@ -29,8 +29,9 @@ class GigsController < ApplicationController
     end 
 
     def destroy 
+        id = @gig.id
         @gig.destroy 
-        render json: "gig Deleted"
+        render json: id
     end 
 
 
@@ -42,6 +43,6 @@ class GigsController < ApplicationController
     end 
 
     def gig_params
-        params.permit(:title, :service_type, :service_id, :client_id, :details, :completed, :amount_due)
+        params.permit(:title, :service_type, :service_id, :client_id, :details, :completed)
     end 
 end

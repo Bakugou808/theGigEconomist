@@ -15,6 +15,9 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs'
+
+
 
 
 class ServiceCard extends Component {
@@ -55,6 +58,12 @@ class ServiceCard extends Component {
            "margin": '10px',
        }
 
+       const descStyle = {
+           "padding-top":'10px'
+       }
+       const payStyle = {
+        "padding-top":'5px'
+        }
 
 
        if(this.state.redirect) {
@@ -71,13 +80,17 @@ class ServiceCard extends Component {
 
                     <Row >
                         <Col><div style={titleStyle} onClick={this.handleView} onDoubleClick={this.handleRedirect} >{service.title}</div></Col>
-                        <Col>{`Pay Range: ${service.pay_range}`}</Col>
-                        <Col>{`Description: ${service.description}`}</Col>
+                        <Col style={payStyle}>{`Pay Range: ${service.pay_range}`}</Col>
+                        
                         <Col md={{ span: 3, offset: 1 }} >
-                            <Button variant='outline-warning' size='sm' onClick={this.handleEdit}>Edit</Button>
-                            <Button variant='outline-warning' size='sm' onClick={()=> onDeleteService(service.id)}>Delete</Button>
+                            <Button variant='outline-warning' size='sm' onClick={this.handleEdit}><BsPencilSquare/></Button>
+                            <Button variant='outline-warning' size='sm' onClick={()=> onDeleteService(service.id)}><BsFillTrashFill/></Button>
                         </Col>
                     </Row>
+                    <Row>
+                    <Col style={descStyle}>{`Description: ${service.description}`}</Col>
+                    </Row>
+                    {/* <Col>{`Description: ${service.description}`}</Col> */}
                 </Container>
                 <div>
                     {this.state.edit && <NewServiceForm service={service} handleClick={this.handleEdit}/>}

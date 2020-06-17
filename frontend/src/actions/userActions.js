@@ -78,7 +78,7 @@ export const signOutUser = (userId) => {
 
 // -------FETCHES----------  *********************************************************************************************************************************
 
-export const signUpUser = (data, dispatch) => {
+export const signUpUser = (data, history, dispatch) => {
         dispatch(signUpUserRequest())
         fetch(`http://localhost:3000/users`, {
             method: "POST",
@@ -93,12 +93,14 @@ export const signUpUser = (data, dispatch) => {
                     dispatch(signUpUserSuccess(data))
                     localStorage.setItem("token", data.jwt)
                     localStorage.setItem("userId", data.id)
+                    history.push('/home')
+
                     // return <Redirect to='/home'/>
                 }
             })
 } 
 
-export const fetchUser = (data, dispatch) => {
+export const fetchUser = (data, history, dispatch) => {
     dispatch(fetchUserRequest())
     fetch(`http://localhost:3000/login`, {
         method: "POST",
@@ -114,7 +116,8 @@ export const fetchUser = (data, dispatch) => {
                 dispatch(fetchUserSuccess(data))
                 localStorage.setItem("token", data.jwt)
                 localStorage.setItem("userId", data.id)
-                // return <Redirect to='/home'/>
+                history.push('/home')
+                // return <Redirect to='/home'/> 
             }
         })
 }

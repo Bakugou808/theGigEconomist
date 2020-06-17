@@ -17,8 +17,23 @@ class GigForm extends Component {
             client_id: '',
             service_id: '',
             completed: false,
-            amount_due: 0.00
-            // user_id: this.props.user.id,
+            // amount_due: 0.00
+            // user_id: this.props.user.id, 
+        }
+    }
+
+    componentDidMount(){
+        if (this.props.gig){
+            const {gig} = this.props 
+            this.setState({edit: true, fields: {
+                title: gig.title,
+                details: gig.details,
+                service_type: gig.service_type,
+                client_id: gig.client_id,
+                service_id: gig.service_id, 
+                completed: gig.completed,
+                // amount_due: gig.amount_due 
+            }})
         }
     }
 
@@ -31,7 +46,7 @@ class GigForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         if(this.state.edit){
-            this.props.onPatchGig(this.state.fields, this.props.service.id)
+            this.props.onPatchGig(this.state.fields, this.props.gig.id)
         }else{
             this.props.onPostNewGig(this.state.fields)
         }
@@ -66,7 +81,9 @@ class GigForm extends Component {
 
     render() {
         const {title, details, amount_due} = this.state.fields 
-
+        const newClientStyle = {
+            'cursor':'pointer'
+        }
         return (
             <div>
             {this.state.error ? <h1>Try again...</h1> : null}
@@ -79,15 +96,16 @@ class GigForm extends Component {
                 <label>Details</label>
                 <input className="form-control" type="name" name="details" value={details} required onChange={this.handleChange}/>
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label>Amount Due</label>
                 <input className="form-control" type="number" name="amount_due" value={amount_due} required onChange={this.handleChange}/>
-            </div>
+            </div> */}
             </form>
             <div className="form-group">
-                <label>Search Clients</label><label onClick={this.handleNewClient}>New Client</label> 
-                {!this.state.newClient ? <Autocomplete suggestions={this.suggestions()} setClient={this.setClient} /> : <ClientForm handleClick={this.handleNewClient}/>}
-                
+                <label>Search Clients</label><label onClick={this.handleNewClient} style={newClientStyle}>/New Client</label> 
+                {(!this.state.newClient && !this.state.edit) && <Autocomplete suggestions={this.suggestions()} setClient={this.setClient} /> }
+                {this.state.newClient && <ClientForm handleClick={this.handleNewClient}/>}
+                {this.state.edit && <Autocomplete client={this.props.gig.client} suggestions={this.suggestions()} setClient={this.setClient} />}
             </div>
 
                <button className="btn btn-info" type="submit" onClick={this.handleSubmit}>Submit</button>

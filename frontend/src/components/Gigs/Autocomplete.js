@@ -46,6 +46,11 @@ class Autocomplete extends Component {
     });
   };
 
+  componentDidMount(){
+    if(this.props.client){
+      this.setState({userInput: this.props.client.company_name})
+    }
+  }
   // Event fired when the user clicks on a suggestion
   onClick = e => {
     // Update the user input and reset the rest of the state

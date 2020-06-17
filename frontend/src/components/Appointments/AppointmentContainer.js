@@ -20,7 +20,7 @@ export default class AppointmentContainer extends Component {
 
   
     state = {
-        form: false,
+        form: false, 
     }
 
     showForm = () => {
@@ -31,7 +31,7 @@ export default class AppointmentContainer extends Component {
         return (
             <div>
                 <AppointmentsList />
-                <Button onClick={this.showForm}>+ Appointment</Button>
+                <Button variant='outline-warning' size='sm'  onClick={this.showForm}>+</Button>
    
                     <Modal show={this.state.form} onHide={this.showForm} size='lg'>
                         <Modal.Header closeButton>

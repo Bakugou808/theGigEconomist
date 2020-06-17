@@ -25,7 +25,7 @@ class Signup extends Component {
         e.preventDefault();
         const {password, password_confirmation} = this.state.fields
         if (password_confirmation === password) {
-            this.props.onSignUpUser(this.state.fields)
+            this.props.onSignUpUser(this.state.fields, this.props.history)
             this.props.history.push('/home')
         } else {
             alert("passwords do not match")
@@ -38,7 +38,7 @@ class Signup extends Component {
         const {firstName, lastName, username, email, password, password_confirmation} = this.state.fields
         return (
         <div>
-            {this.state.error ? <h1>Try again...</h1> : null}
+            {this.state.error ? alert(`Sorry, that Signup didn't work, try again...`) : null}
            <form className="signup-form" onSubmit = {this.handleSubmit}>
              <div className="form-group">
                 <label>First Name</label>
@@ -79,7 +79,7 @@ const mapStateToProps = (store) => {
   
   const mapDispatchToProps = (dispatch) => {
     return {
-      onSignUpUser: (userSignUpData)=> signUpUser(userSignUpData, dispatch), 
+      onSignUpUser: (userSignUpData, history)=> signUpUser(userSignUpData, history, dispatch), 
       // the above is for api/async calls 
       // onChangeData: (newData) => dispatch(dataChangeAction(newData))   ---> this is for normal state changes, dispatch the outcome of an action creator, just to modify state
     }

@@ -32,6 +32,26 @@ const servicesReducer = (state=initialState, action) => {
                 error: action.error
             } 
 
+        case 'FETCH_SERVICE_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_SERVICE_SUCCESS':
+            
+            return {
+                ...state,
+                fetching: false, 
+                selectedService: action.service
+            }    
+        case 'FETCH_SERVICE_FAILURE':
+        
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+
 // ----------ADD SERVICE-------  *****************************
 
         case 'POST_SERVICE_REQUEST':
@@ -93,7 +113,7 @@ const servicesReducer = (state=initialState, action) => {
                 error: action.error
             } 
         case 'DELETE_SERVICE_SUCCESS':
-        
+         
             return {
                 ...state,
                 fetching: false, 
@@ -106,6 +126,13 @@ const servicesReducer = (state=initialState, action) => {
                 ...state, 
                 selectedService: action.service
             }
+
+        // ----------------------
+        // case 'POST_GIG_SUCCESS':
+        //     return {
+        //         ...state,
+        //         selectedService: [...state.selectedService, {gig: {...state.selectedService.gigs, ...action.gig}}]
+        //     }
         
         // case 'SIGN_OUT_USER':
 

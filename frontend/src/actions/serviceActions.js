@@ -1,4 +1,5 @@
 import {headers} from '../services/api'
+import {setGigsForService} from '../actions/gigActions'
 
 // ----------FETCH ALL SERVICES REQUEST-------  *****************************
 
@@ -18,6 +19,28 @@ export const fetchServicesSuccess = (services) => {
 export const fetchServicesFailure = (error) => {
     return {
         type: 'FETCH_SERVICES_FAILURE',
+        error: error,
+    }
+}
+
+// ----------FETCH ALL SERVICE REQUEST-------  *****************************
+
+export const fetchServiceRequest = () => {
+    return {
+        type: 'FETCH_SERVICE_REQUEST'
+    }
+}
+
+export const fetchServiceSuccess = (service) => {
+    return {
+        type: 'FETCH_SERVICE_SUCCESS',
+        service: service,
+    }
+}
+
+export const fetchServiceFailure = (error) => {
+    return {
+        type: 'FETCH_SERVICE_FAILURE',
         error: error,
     }
 }
@@ -119,6 +142,22 @@ export const fetchServices = (userId, dispatch) => {
                     dispatch(fetchServicesSuccess(data))
                 }
             }) 
+}
+
+// --------FETCH SINGLE SERVICE---------  ********************************
+
+export const fetchService = (serviceId, dispatch) => {
+    dispatch(fetchServiceRequest())
+    fetch(`http://localhost:3000/services/${serviceId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchServiceFailure(data.error))
+            } else {
+                dispatch(fetchServiceSuccess(data))
+                dispatch(setGigsForService(data.gigs))
+            }
+        }) 
 }
 
 // ----------ADD SERVICE-------  *****************************
