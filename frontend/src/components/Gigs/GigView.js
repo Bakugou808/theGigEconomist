@@ -10,33 +10,59 @@ import Modal from 'react-bootstrap/Modal'
 
 class GigView extends Component {
 
+    // totalDue = () => {
+    //     const {gigs} = this.props 
+    //     let appts = []
+    //     appts = gigs.map(gig => {
+    //         return gig.appointments.map(appt=> parseInt(appt.payment_amount.split('$')[1]))
+    //     })
+    //     debugger
+    // }
+
+    totalDue = () => {
+        const {gigs, gig} = this.props 
+        let total = 0
+        gigs.forEach(gigx => {
+            gigx.title === gig.title && gigx.appointments.forEach(appt => total += parseInt(appt.payment_amount.split('$')[1]))
+        })
+        return total
+    }
+    
 
     render() { 
-        
+        const textStyle = {
+            'margin': '10px'
+        }
+        const rowStyle = {
+            'border-style': 'solid',
+            'border-width': 'thin',
+            'margin': '2px',
+            'border-radius': '5px'
+        }
         return (
             <Container>
-                <Row>
-                    <Col>
+                <Row style={rowStyle}>
+                    <Col style={textStyle}>
                     Title: {this.props.gig.title}
                     </Col>
-                    <Col>
-                    Total Payment Amount: summate from appointments
+                    <Col style={textStyle}>
+                    Total Payment Amount: ${this.totalDue()}
                     </Col>
-                    <Col>Completed: {this.props.gig.completed ? 'Yes' : 'No'}</Col>
+                    <Col style={textStyle}>Completed: {this.props.gig.completed ? 'Yes' : 'No'}</Col>
                 </Row>
-                <Row>
-                    <Col>
+                <Row style={rowStyle}>
+                    <Col style={textStyle}>
                     {this.props.client && `Company: ${this.props.client.company_name}`}
                     </Col>
-                    <Col>Service Type: {this.props.gig.service_type}</Col>
-                    <Col>{this.props.client && `Venmo: ${this.props.client.venmo}`}</Col>
+                    <Col style={textStyle}>Service Type: {this.props.gig.service_type}</Col>
+                    <Col style={textStyle}>{this.props.client && `Venmo: ${this.props.client.venmo}`}</Col>
                 </Row>
-                <Row>
-                    <Col>{this.props.client && `Contact: ${this.props.client.contact_name}`}</Col>
-                    <Col>{this.props.client && `Email: ${this.props.client.email}`}</Col>
-                    <Col>{this.props.client && `Cell: ${this.props.client.cell}`}</Col>
+                <Row style={rowStyle}>
+                    <Col style={textStyle}>{this.props.client && `Contact: ${this.props.client.contact_name}`}</Col>
+                    <Col style={textStyle}>{this.props.client && `Email: ${this.props.client.email}`}</Col>
+                    <Col style={textStyle}>{this.props.client && `Cell: ${this.props.client.cell}`}</Col>
                 </Row>
-                <Row><Col>Details: {this.props.gig.details}</Col></Row>
+                <Row style={rowStyle}><Col style={textStyle}>Details: {this.props.gig.details}</Col></Row>
             </Container>
             // <div>
             //     {`${this.props.gig.title}
@@ -58,6 +84,7 @@ class GigView extends Component {
 const mapStateToProps = (store) => {
     return {
         gig: store.gigs.selectedGig,
+        gigs: store.gigs.gigsForService,
         client: store.gigs.selectedGig.client
     }
 }

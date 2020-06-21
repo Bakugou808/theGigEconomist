@@ -102,7 +102,7 @@ export const setGigsForService = (gigList) => {
 
 export const selectGig = (gig) => {
     return {
-        type: 'SET_GIG_FOR_VIEW',
+        type: 'SET_GIG_FOR_VIEW', 
         gig: gig
     }
 }

@@ -75,7 +75,7 @@ const appointmentsReducer = (state=initialState, action) => {
                 ...state,
                 fetching: false, 
                 allAppointments: [...state.allAppointments, action.appointment],
-                appointmentsForGig: {incomplete: [...state.appointmentsForGig.incomplete, action.appointment], completed: [...state.appointmentsForGig.complete]}
+                appointmentsForGig: {incomplete: [...state.appointmentsForGig.incomplete, action.appointment], completed: [...state.appointmentsForGig.completed]}
             } 
             
 // ----------PATCH APPOINTMENT-------  *****************************
@@ -100,14 +100,14 @@ const appointmentsReducer = (state=initialState, action) => {
                     ...state,
                     fetching: false, 
                     allAppointments: [...[...state.allAppointments.filter(appointment => appointment.id != action.appointment.id)], action.appointment],
-                    appointmentsForGig: {incomplete: [state.appointmentsForGig.incomplete.filter(appt => appt.id != action.appointment.id)], completed: [...state.appointmentsForGig.completed, action.appointment]}
+                    appointmentsForGig: {incomplete: [...state.appointmentsForGig.incomplete.filter(appt => appt.id != action.appointment.id)], completed: [...[...state.appointmentsForGig.completed.filter(appt=> appt.id != action.appointment.id)], action.appointment]}
                 } 
             }else{
                 return {
                     ...state,
                     fetching: false, 
                     allAppointments: [...[...state.allAppointments.filter(appointment => appointment.id != action.appointment.id)], action.appointment],
-                    appointmentsForGig: {completed: [state.appointmentsForGig.completed.filter(appt => appt.id != action.appointment.id)], incomplete: [...state.appointmentsForGig.incomplete, action.appointment]}
+                    appointmentsForGig: {completed: [...state.appointmentsForGig.completed.filter(appt => appt.id != action.appointment.id)], incomplete: [...[...state.appointmentsForGig.incomplete], action.appointment]}
                 } 
             }
             // return {
@@ -137,7 +137,7 @@ const appointmentsReducer = (state=initialState, action) => {
                 ...state,
                 fetching: false, 
                 allAppointments: state.allAppointments.filter(appt => appt.id != action.appointmentId),
-                appointmentsForGig: state.appointmentsForGig.filter(appt => appt.id != action.appointmentId)
+                appointmentsForGig: {completed: [...state.appointmentsForGig.completed.filter(appt => appt.id != action.appointmentId)], incomplete: [...state.appointmentsForGig.incomplete.filter(appt => appt.id != action.appointmentId)]}
             } 
 
 // ----------SET APPOINTMENTS FOR GIG-------  *****************************

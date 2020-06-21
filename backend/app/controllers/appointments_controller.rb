@@ -22,7 +22,6 @@ class AppointmentsController < ApplicationController
     end 
 
     def update 
-        
         if @appointment.update(appointment_params)
             
             render json: @appointment 

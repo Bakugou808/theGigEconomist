@@ -50,7 +50,7 @@ class GigCard extends Component {
                 <Card.Header>
                     <Container>
                         <Row>
-                            <Col><Card.Title style={titleStyle} onClick={onSelectGig(gig)} >{gig.title}</Card.Title></Col>
+                            <Col><Card.Title style={titleStyle} onClick={()=>onSelectGig(gig)} >{gig.title}</Card.Title></Col>
                             <Col>{gig.client.company_name}</Col>
                             <Col>{gig.client.contact_name}</Col>
                             <Col>Created: {this.renderDate(gig.created_at)}</Col>

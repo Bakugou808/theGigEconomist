@@ -91,12 +91,28 @@ const servicesReducer = (state=initialState, action) => {
         case 'PATCH_SERVICE_SUCCESS':
             // const newData = [state.data.filter(service => service.id != action.serviceId)]
             idx = state.data.findIndex(service => service.id === action.service.id)
-            
+            if(state.selectedService.id === action.service.id){
+                return {
+                    ...state,
+                    fetching: false, 
+                    data: [...[...state.data.filter(service => service.id != action.service.id)], action.service],
+                    selectedService: action.service
+                } 
+            }else{
+                return {
+                    ...state,
+                    fetching: false, 
+                    data: [...[...state.data.filter(service => service.id != action.service.id)], action.service]
+                } 
+            }
+
+// ----------CLEAR SELECTED SERVICE-------  *****************************
+
+        case 'CLEAR_SERVICE_STATE':
             return {
                 ...state,
-                fetching: false, 
-                data: [...[...state.data.filter(service => service.id != action.service.id)], action.service]
-            } 
+                selectedService: []
+            }
 
 // ----------DELETE SERVICE-------  *****************************
 

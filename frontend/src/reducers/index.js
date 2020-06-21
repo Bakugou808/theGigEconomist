@@ -5,6 +5,7 @@ import authReducer from './authReducer'
 import clientsReducer from './clientsReducer'
 import gigsReducer from './gigsReducer'
 import appointmentsReducer from './appointmentsReducer'
+import statsReducer from './statsReducer'
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     clients: clientsReducer,
     gigs: gigsReducer,
     appointments: appointmentsReducer,
+    stats: statsReducer
     // home: homeReducer
 });
  

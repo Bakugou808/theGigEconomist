@@ -154,7 +154,7 @@ export const fetchService = (serviceId, dispatch) => {
             if (data.error){
                 dispatch(fetchServiceFailure(data.error))
             } else {
-                dispatch(fetchServiceSuccess(data))
+                dispatch(fetchServiceSuccess(data)) 
                 dispatch(setGigsForService(data.gigs))
             }
         }) 

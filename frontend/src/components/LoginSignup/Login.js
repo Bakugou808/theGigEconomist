@@ -23,7 +23,7 @@ class Login extends Component {
         e.preventDefault();
         let history = this.props.history
         this.props.onFetchUser(this.state.fields, history)
-        debugger
+        
         this.props.history.push('/home')
 
         // return <Redirect to='/home'/>

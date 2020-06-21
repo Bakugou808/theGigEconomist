@@ -6,6 +6,8 @@ import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { deleteService } from '../../actions/serviceActions' 
 import { selectService } from '../../actions/serviceActions'
+import {fetchServicesMonthsGigs, fetchServiceEarnedVsProj } from '../../actions/statsActions'
+
 
 import { setGigsForService } from '../../actions/gigActions'
 import NewServiceForm from '../Services/NewServiceForm'
@@ -37,6 +39,8 @@ class ServiceCard extends Component {
     
     handleView = () => {
         this.props.onSelectService(this.props.service)
+        this.props.onGetMonthsGigs(this.props.service.id)
+        this.props.onEarnedVsProj(this.props.service.id)
     }
     
     
@@ -105,7 +109,9 @@ const mapDispatchToProps = (dispatch) => {
     return { 
         onDeleteService: (serviceId) => deleteService(serviceId, dispatch),
         onSetGigsForService: (gigsList) => dispatch(setGigsForService(gigsList)),
-        onSelectService: (service) => dispatch(selectService(service))
+        onSelectService: (service) => dispatch(selectService(service)),
+        onGetMonthsGigs: (serviceId) => fetchServicesMonthsGigs(serviceId, dispatch),
+        onEarnedVsProj: (serviceId) => fetchServiceEarnedVsProj(serviceId, dispatch)
     }
 }
 

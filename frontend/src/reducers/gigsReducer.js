@@ -108,7 +108,7 @@ const gigsReducer = (state=initialState, action) => {
 
         case 'SET_GIGS_FOR_SERVICE':
 
-            return {
+            return { 
                 ...state,
                 gigsForService: action.gigList
             } 

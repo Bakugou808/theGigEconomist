@@ -55,6 +55,7 @@ class ServicesList extends Component {
         const cardStyle = {
             'width': '100', 
             'height': 'auto', 
+            'margin':'10px'
             // 'overflow-y': 'auto'
         }
 

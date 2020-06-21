@@ -42,6 +42,27 @@ class ServiceView extends Component {
         this.setState(prev => ({new_gig: !prev.new_gig}))
     }
     
+
+    totalDue = () => {
+        const {gigs, selectedGig} = this.props 
+        let total = 0
+        gigs.forEach(gigx => {
+            gigx.title === selectedGig.title && gigx.appointments.forEach(appt => total += parseInt(appt.payment_amount.split('$')[1]))
+        })
+        return total
+    }
+
+    earned = () => {
+        const {gigs, selectedGig} = this.props 
+        let total = 0
+        gigs.forEach(gigx => {
+            gigx.title === selectedGig.title && gigx.appointments.forEach(appt => {
+                if(appt.completed){total += parseInt(appt.payment_amount.split('$')[1])}
+            })
+        })
+        return total
+    }
+    
     
 
     render() { 
@@ -84,7 +105,7 @@ class ServiceView extends Component {
                             style={gigListStyle}
                             text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
                             <Card.Text>Total Earnings for service to Date</Card.Text>
-                            <Card.Text>Projected Earnings for service</Card.Text>
+                            <Card.Text>Projected Earnings For {thisService.title}: ${this.totalDue()}</Card.Text>
                         </Card>
                     </Col>
                 </Row>
@@ -125,7 +146,7 @@ class ServiceView extends Component {
                                 >
                                      <Row>
                                         <Col md={9}>
-                                            <Card.Body><GigView /></Card.Body>
+                                            <Card.Body><GigView /></Card.Body> 
                                         </Col>
                                         <Col>
                                             <Card bg={'warning'}
@@ -133,8 +154,8 @@ class ServiceView extends Component {
                                                 border='info'
                                                 style={cardStyle}
                                                 text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
-                                                <Card.Text style={cardStyle}>Total Earnings for gig to Date</Card.Text>
-                                                <Card.Text style={cardStyle}>Projected Earnings for gig</Card.Text>
+                                                <Card.Text style={cardStyle}>Total Earnings For {thisService.title} to Date: ${this.earned()}</Card.Text>
+                                                <Card.Text style={cardStyle}>Projected Earnings For {thisService.title}: ${this.totalDue()}</Card.Text>
                                             </Card>
                                         </Col>
                                     </Row>
@@ -184,6 +205,7 @@ const mapStateToProps = (store) => {
         thisService: store.services.selectedService,
         gigs: store.gigs.gigsForService,
         selectedGig: store.gigs.selectedGig,
+        
     }
 }
 

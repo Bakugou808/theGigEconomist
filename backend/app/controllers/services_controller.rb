@@ -11,6 +11,18 @@ class ServicesController < ApplicationController
         # , include: ['profiles']
     end 
 
+    def monthsGigs 
+        service = Service.find(params[:service_id])
+        gigHash = Service.monthsGigs(service.id)
+        render json: gigHash
+    end
+
+    def earnedVsProjected
+        
+        results = Service.earnedVsProjected(params[:service_id])
+        render json: results
+    end
+
     def usersServices
         services = Service.where(user_id: params[:user_id].to_i)
         render json: services

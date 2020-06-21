@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get '/current_user', to: 'auth#show'
   get '/user_services/:user_id', to: 'services#usersServices'
   get '/user_clients/:user_id', to: 'clients#usersClients'
+  get '/months_gigs/:service_id', to: 'services#monthsGigs'
+  get '/earned_vs_projected/:service_id', to: 'services#earnedVsProjected'
 end

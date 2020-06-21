@@ -1,6 +1,8 @@
  import React, { Component } from 'react'
  import {connect} from 'react-redux'
 import { patchAppointment, deleteAppointment } from '../../actions/appointmentsActions'
+import {fetchService} from '../../actions/serviceActions'
+
 import AppointmentForm from './AppointmentForm'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -22,12 +24,23 @@ class AppointmentView extends Component {
    }
 
    handleComplete = () => {
-      const {onPatchAppointment, appointment} = this.props
-      let fields = {title: appointment.title, payment_amount: appointment.payment_amount, notes: appointment.notes, location: appointment.location, gig_id: appointment.gig_id, end_of_appointment: appointment.end_of_appointment, time_of_appointment: appointment.time_of_appointment, completed: true}
+      const {onPatchAppointment, onFetchService, appointment, selectedService} = this.props
+      let val = appointment.completed ? false : true 
+      let fields = {title: appointment.title, payment_amount: appointment.payment_amount, notes: appointment.notes, location: appointment.location, gig_id: appointment.gig_id, end_of_appointment: appointment.end_of_appointment, time_of_appointment: appointment.time_of_appointment, completed: val}
 
       onPatchAppointment(fields, appointment.id)
+      onFetchService(selectedService.id)
+
    }
    
+   renderDate = (created_at) => {
+      let date = new Date(created_at).toLocaleDateString('en-GB', {  
+          day : 'numeric',
+          month : 'short',
+          year : 'numeric'
+      })
+      return date 
+  }
 
      render() {
          const {appointment, closeForm} = this.props
@@ -52,7 +65,7 @@ class AppointmentView extends Component {
                         {appointment.title}
                      </Col>
                      <Col style={textStyle}>
-                        {appointment.date_of_appointment}
+                        {this.renderDate(appointment.date_of_appointment)}
                      </Col>
                      <Col style={textStyle}>
                         {appointment.completed ? "Paid" : "Not Paid"}
@@ -61,7 +74,7 @@ class AppointmentView extends Component {
                         {appointment.payment_amount}
                      </Col>
                      <Col style={textStyle}>
-                        {appointment.time_of_appointment}
+                        {appointment.time_of_appointment.toString()}
                      </Col>
                      <Col style={textStyle}>
                         {appointment.location}
@@ -78,7 +91,7 @@ class AppointmentView extends Component {
 
                      </Col>
                     </Row>
-                    <Row>Note: {appointment.notes}</Row>
+                    <Row style={textStyle}>Note: {appointment.notes}</Row>
                     {this.state.edit && <AppointmentForm closeForm={this.handleEdit} appointment={appointment}/>}
                      
                  </Card >
@@ -86,12 +99,19 @@ class AppointmentView extends Component {
          )
      }
  }
+
+ const mapStateToProps = (store) => {
+   return {
+       selectedService: store.services.selectedService,
+   }
+}
  
  const mapDispatchToProps= (dispatch) =>{
     return {
        onPatchAppointment: (appointmentData, appointmentId) => patchAppointment(appointmentData, appointmentId, dispatch),
-       onDeleteAppointment: (appointmentId) => deleteAppointment(appointmentId, dispatch)
+       onDeleteAppointment: (appointmentId) => deleteAppointment(appointmentId, dispatch),
+       onFetchService: (serviceId) => fetchService(serviceId, dispatch)
     }
  }
 
- export default connect(null, mapDispatchToProps)(AppointmentView)
+ export default connect(mapStateToProps, mapDispatchToProps)(AppointmentView)
