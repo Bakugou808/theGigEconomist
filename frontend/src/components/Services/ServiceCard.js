@@ -79,7 +79,7 @@ class ServiceCard extends Component {
             return <Redirect to={location}/>}
         return (
 
-            <div style={cardStyle}>
+            <div style={cardStyle}> 
                 <Container>
 
                     <Row >

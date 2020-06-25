@@ -48,7 +48,7 @@ class GigView extends Component {
                     <Col style={textStyle}>
                     Total Payment Amount: ${this.totalDue()}
                     </Col>
-                    <Col style={textStyle}>Completed: {this.props.gig.completed ? 'Yes' : 'No'}</Col>
+                    <Col style={textStyle}>Completed: {this.props.gig.completed ? 'Yes' : 'Ongoing'}</Col>
                 </Row>
                 <Row style={rowStyle}>
                     <Col style={textStyle}>
@@ -88,6 +88,7 @@ const mapStateToProps = (store) => {
         client: store.gigs.selectedGig.client
     }
 }
+
 
 
 export default connect(mapStateToProps)(GigView)

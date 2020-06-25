@@ -96,7 +96,7 @@ const gigsReducer = (state=initialState, action) => {
                 error: action.error
             } 
         case 'DELETE_GIG_SUCCESS':
-        
+         
             return {
                 ...state,
                 fetching: false, 
@@ -117,6 +117,12 @@ const gigsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 selectedGig: action.gig
+            }
+        
+        case 'CLEAR_SERVICE_STATE':
+            return {
+                ...state,
+                selectedGig: []
             }
 
         default:

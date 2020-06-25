@@ -42,6 +42,12 @@ class AppointmentView extends Component {
       return date 
   }
 
+  renderTime = (timeST) => {
+     let time = new Date(timeST)
+     time = time.toLocaleTimeString()
+     return time
+  }
+
      render() {
          const {appointment, closeForm} = this.props
          const cardStyle = {
@@ -62,26 +68,26 @@ class AppointmentView extends Component {
                   text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
                     <Row border='warning'>
                     <Col style={textStyle} >
-                        {appointment.title}
+                        Title: {appointment.title}
                      </Col>
                      <Col style={textStyle}>
-                        {this.renderDate(appointment.date_of_appointment)}
+                        Date: {this.renderDate(appointment.date_of_appointment)}
                      </Col>
                      <Col style={textStyle}>
-                        {appointment.completed ? "Paid" : "Not Paid"}
+                        Paid: {appointment.completed ? "Paid" : "Not Paid"}
                      </Col>
                      <Col style={textStyle}>
-                        {appointment.payment_amount}
+                        Fee: {appointment.payment_amount}
                      </Col>
                      <Col style={textStyle}>
-                        {appointment.time_of_appointment.toString()}
+                        Time: {this.renderTime(appointment.time_of_appointment)} - {this.renderTime(appointment.end_of_appointment)}
                      </Col>
                      <Col style={textStyle}>
-                        {appointment.location}
+                        Location: {appointment.location}
                      </Col>
-                     <Col style={textStyle}>
+                     {/* <Col style={textStyle}>
                         {appointment.duration}
-                     </Col>
+                     </Col> */}
                      <Col style={textStyle}>
                         <Row>
                         <Button variant='outline-warning' size='sm' onClick={this.handleEdit} ><BsPencilSquare/></Button>

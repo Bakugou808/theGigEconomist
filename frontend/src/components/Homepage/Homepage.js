@@ -1,34 +1,169 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import {AuthHOC} from '../HOCs/AuthHOC'
+import { AuthHOC } from '../HOCs/AuthHOC'
 import { fetchClients } from '../../actions/clientActions';
 import { fetchServices } from '../../actions/serviceActions'
+import { fetchTotalCurrVsProj, fetchApptThisWeek, fetchMostPopService, fetchMostLucrativeService, fetchTotalAnnualStats, fetchTimeIntensiveService } from '../../actions/statsActions'
+
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 const user_id = localStorage.userId
 
 class Homepage extends Component {
 
-    componentDidMount(){
-        const {onFetchServices, onFetchClients} = this.props 
-        
+    state = {
+        month: false,
+        allTime: true,
+    }
+
+    componentDidMount() {
+        const { onFetchServices, onFetchClients, onFetchTotalCurrVsProj, onFetchApptThisWeek, onFetchMostPopService, onFetchMostLucrativeService, onFetchTotalAnnualStats, onFetchTimeIntensiveService } = this.props
+
         onFetchClients(user_id)
         onFetchServices(user_id)
-
+        onFetchTotalCurrVsProj(user_id)
+        onFetchApptThisWeek(user_id)
+        onFetchMostPopService(user_id)
+        onFetchMostLucrativeService(user_id)
+        onFetchTotalAnnualStats(user_id)
+        onFetchTimeIntensiveService(user_id)
     }
 
     render() {
-        const {match} = this.props
+        const { match } = this.props
+        const subCardStyle = {
+            'width': '100',
+            'margin': '10px'
+        }
+        const cardStyle = {
+            "margin": '10px',
+        }
+
+        const statStyle = {
+            'align-items': 'center',
+            'justify-content': 'center',
+            'display': 'flex',
+            'width': '100%',
+            'height': '100%',
+            'margin': '10px'
+        }
         return (
-            <div>
-                
-{/* 
-                {<Route path='/' render={props=> <Sidemenu {...props} />} />}
-                <Route path='/gigs' render={props => <GigsContainer {...props} />} />
-                <Route path='/clients' render={props => <ClientsContainer {...props} />} />
-                <Route path='/services' render={props => <ServicesContainer {...props} />} /> */}
-                HOMEPAGE
-                {/* <Sidemenu/> */}
-            </div>
+            <Container>
+                {/* current vs projected income */}
+                <Row>
+                    <Col>
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Current vs. Projected Income</Card.Title></Card.Header>
+                            <Card.Body >
+                                <Row>
+                                    <Col style={statStyle}>
+                                        Graph COMPONENT
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        Card Info COMPONENT
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                {/* appointments this week --> Google Cal? */}
+                <Row>
+                    <Col>
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Appointments This Week</Card.Title></Card.Header>
+                            <Card.Body >
+                                <Row>
+                                    <Col style={statStyle}>
+                                        Graph COMPONENT
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        Card Info COMPONENT
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                {/* most popular service */}
+                <Row>
+                    <Col>
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Most Popular Service</Card.Title></Card.Header>
+                            <Card.Body >
+                                <Row>
+                                    <Col style={statStyle}>
+                                        Graph COMPONENT
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        Card Info COMPONENT
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                {/* most lucrative service */}
+                <Row>
+                    <Col>
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Most Lucrative Service</Card.Title></Card.Header>
+                            <Card.Body>
+                                <Row>
+                                    <Col style={statStyle}>
+                                        Graph COMPONENT
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        Card Info COMPONENT
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                {/* most Time intensive service */}
+                <Row>
+                    <Col>
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Most Time Intensive Service</Card.Title></Card.Header>
+                            <Card.Body>
+                                <Row>
+                                    <Col style={statStyle}>
+                                        Graph COMPONENT
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        Card Info COMPONENT
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                {/* total Taxes */}
+                <Row>
+                    <Col>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
@@ -42,7 +177,13 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onFetchServices: (user_id) => fetchServices(user_id, dispatch),
-        onFetchClients: (user_id) => fetchClients(user_id, dispatch)
+        onFetchClients: (user_id) => fetchClients(user_id, dispatch),
+        onFetchTotalCurrVsProj: (user_id) => fetchTotalCurrVsProj(user_id, dispatch),
+        onFetchApptThisWeek: (user_id) => fetchApptThisWeek(user_id, dispatch),
+        onFetchMostPopService: (user_id) => fetchMostPopService(user_id, dispatch),
+        onFetchMostLucrativeService: (user_id) => fetchMostLucrativeService(user_id, dispatch),
+        onFetchTotalAnnualStats: (user_id) => fetchTotalAnnualStats(user_id, dispatch),
+        onFetchTimeIntensiveService: (user_id) => fetchTimeIntensiveService(user_id, dispatch)
     }
 }
 

@@ -165,6 +165,7 @@ export const patchGig = (gigData, gigId, dispatch) => {
                 dispatch(patchGigFailure(data.error))
             } else {
                 dispatch(patchGigSuccess(data))
+                dispatch(selectGig(data))
             }
         }) 
 }

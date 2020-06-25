@@ -18,7 +18,7 @@ import ModalDialog from 'react-bootstrap/ModalDialog'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import ModalFooter from 'react-bootstrap/ModalFooter'
-import { setGigsForService } from '../../actions/gigActions'
+import { setGigsForService, patchGig } from '../../actions/gigActions'
 
 
 class ServiceView extends Component {
@@ -40,6 +40,28 @@ class ServiceView extends Component {
 
     addGig = () => {
         this.setState(prev => ({new_gig: !prev.new_gig}))
+    }
+
+    totalTotalDue = () => {
+        const {gigs} = this.props 
+        let total = 0 
+        let totalCount = 0
+
+
+        let earned = 0
+        let earnedCount = 0
+        gigs.forEach(gig => {
+            gig.appointments.forEach(appt => {
+                if(appt.completed){
+                    earned += parseInt(appt.payment_amount.split('$')[1])
+                    earnedCount += 1
+                }
+                total += parseInt(appt.payment_amount.split('$')[1])
+                totalCount += 1
+            })
+        })
+        let data = {numAppts: totalCount, sum: total, earned: earned, earnedCount: earnedCount}
+        return data
     }
     
 
@@ -63,10 +85,18 @@ class ServiceView extends Component {
         return total
     }
     
+    handleComplete = () => {
+        const {selectedGig, onPatchGig, onFetchService, thisService} = this.props 
+        const gigData = {completed: !selectedGig.completed}
+        onPatchGig(gigData, selectedGig.id)
+        onFetchService(thisService.id)
+
+    }
+    
     
 
     render() { 
-        const {service} = this.props.location.state
+        // const {service} = this.props.location.state
         const {thisService, selectedGig} = this.props
         const cardStyle = {
             "margin": '10px',
@@ -87,7 +117,7 @@ class ServiceView extends Component {
                             style={gigListStyle}
                             text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
                         >
-                            <GigsList gigs={this.props.gigs} service={service} />
+                            <GigsList gigs={this.props.gigs} service={thisService} />
                         </Card>
                         
                     </Col>
@@ -97,15 +127,9 @@ class ServiceView extends Component {
                             border='info'
                             style={gigListStyle}
                             text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
-                            <Card.Header>total made this month</Card.Header>
-                        </Card>
-                        <Card bg={'warning'}
-                            // key={service.id}
-                            border='info'
-                            style={gigListStyle}
-                            text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
-                            <Card.Text>Total Earnings for service to Date</Card.Text>
-                            <Card.Text>Projected Earnings For {thisService.title}: ${this.totalDue()}</Card.Text>
+                            <Card.Text style={cardStyle}>Total Earnings For {thisService.title} to Date: ${this.totalTotalDue().earned}</Card.Text>
+                            <Card.Text style={cardStyle}>Projected Earnings For {thisService.title}: ${this.totalTotalDue().sum}</Card.Text>
+                            <Card.Text style={cardStyle}>You've Completed {this.totalTotalDue().earnedCount} Appointments out of {this.totalTotalDue().numAppts}</Card.Text>
                         </Card>
                     </Col>
                 </Row>
@@ -154,9 +178,12 @@ class ServiceView extends Component {
                                                 border='info'
                                                 style={cardStyle}
                                                 text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}>
-                                                <Card.Text style={cardStyle}>Total Earnings For {thisService.title} to Date: ${this.earned()}</Card.Text>
-                                                <Card.Text style={cardStyle}>Projected Earnings For {thisService.title}: ${this.totalDue()}</Card.Text>
+                                                <Card.Text style={cardStyle}>Total Earnings For {selectedGig.title} to Date: ${this.earned()}</Card.Text>
+                                                <Card.Text style={cardStyle}>Projected Earnings For {selectedGig.title}: ${this.totalDue()}</Card.Text>
                                             </Card>
+                                            <Button style={cardStyle} variant='outline-warning' size='sm' onClick={this.handleComplete}>
+                                                {selectedGig.completed ? `Mark Incomplete` : `Mark Completed`}
+                                            </Button>
                                         </Col>
                                     </Row>
                                     <Row>
@@ -183,7 +210,7 @@ class ServiceView extends Component {
                             <Modal.Title>Gig Form</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <GigForm closeForm={this.addGig} service={service} />
+                            <GigForm closeForm={this.addGig} service={thisService} />
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={this.addGig}>
@@ -212,7 +239,8 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onFetchService: (serviceId) => fetchService(serviceId, dispatch),
-        onSetGigsForService: (gigList) => dispatch(setGigsForService(gigList))
+        onSetGigsForService: (gigList) => dispatch(setGigsForService(gigList)),
+        onPatchGig: (gigData, gigId) => patchGig(gigData, gigId, dispatch)
     }
 }
 

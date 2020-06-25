@@ -11,6 +11,34 @@ class ServicesController < ApplicationController
         # , include: ['profiles']
     end 
 
+    def appThisWeek
+        sched = Service.thisWeek(params[:user_id])
+        
+        render json: sched 
+    end
+
+    def popService 
+        data = Service.mostPop(params[:user_id])
+        render json: data
+    end 
+
+    def lucService
+        
+        data = Service.mostLuc(params[:user_id])
+        render json: data
+    end
+
+    def timeIntensiveService
+        data = Service.mostTime(params[:user_id])
+        render json: data 
+    end 
+
+    def totalAnnual
+        
+        data = Service.totalStats(params[:user_id])
+        render json:data
+    end
+
     def monthsGigs 
         service = Service.find(params[:service_id])
         gigHash = Service.monthsGigs(service.id)

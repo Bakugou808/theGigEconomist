@@ -159,6 +159,12 @@ const appointmentsReducer = (state=initialState, action) => {
                 selectedAppointment: action.appointment
             }
 
+        case 'CLEAR_SERVICE_STATE':
+            return {
+                ...state,
+                appointmentsForGig: []
+            }
+
         default:
             return state
     }

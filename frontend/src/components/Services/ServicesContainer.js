@@ -69,13 +69,13 @@ class ServicesContainer extends Component {
                     </Col>
 
                     <Col>
-                        {earnedVsProjected && <Card
+                        {earnedVsProjected.earned && <Card
                             border='info'
                             bg="warning"
                             text={'warning' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}
                         >
-                            {earnedVsProjected.earned && <Card.Header>This Months Earnings From {selectedService.title}: ${earnedVsProjected.earned.sum}</Card.Header>}
+                            <Card.Header>This Months Earnings From {selectedService.title}: ${earnedVsProjected.earned.sum}</Card.Header>
                         </Card>}
                     </Col>
                 </Row>
@@ -98,7 +98,7 @@ class ServicesContainer extends Component {
                         <Modal.Footer>
                             <Button variant="secondary" onClick={this.handleClick}>Close</Button>
                         </Modal.Footer>
-                    </Modal>}
+                    </Modal>} 
                 </div>
                 <Row className="#ofGigsForService">
                     <Col md={9}>
@@ -107,8 +107,16 @@ class ServicesContainer extends Component {
                             text={'warning' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}>
                             <Card.Header><Card.Title>Gigs For Service</Card.Title></Card.Header>
-                            <Card.Body style={subCardStyle}>{selectedService.id && <GigsForService />}</Card.Body>
+                            <Row>
+                                <Col md={9}>
+                                <Card.Body style={subCardStyle}>{selectedService.id && <GigsForService />}</Card.Body>
+                                </Col>
+                                <Col>{selectedService.id && <InfoCardGigsForService />}</Col>
+                            </Row>
+                            
                         </Card>
+                        
+                        
                     </Col>
                     <Col>{selectedService.id && <InfoCardGigsForService />}</Col>
                 </Row>

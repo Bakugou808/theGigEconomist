@@ -11,6 +11,15 @@ class UsersController < ApplicationController
         # , include: ['profiles']
     end 
 
+    def currVsProj
+        # user = User.find(params[:userId])
+        data = User.totalCurrVsProj(params[:user_id])
+        render json: data  
+        
+    end
+
+
+
     def create 
         
         @user = User.new(user_params)

@@ -62,10 +62,13 @@ class AppointmentForm extends Component {
 
     render() {
         const {title, date_of_appointment, payment_amount, time_of_appointment, notes, location, end_of_appointment, gig_id} = this.props
+        const formStyle = {
+            'margin': '5px'
+        }
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Row> 
+                    <Form.Row style={formStyle}> 
                         <Form.Group as={Col} controlId="formGridTitle">
                             <Form.Label>Title</Form.Label>
                             <Form.Control type='text' required onChange={this.handleChange} name='title' value={title} placeholder='Enter Title' />
@@ -79,7 +82,7 @@ class AppointmentForm extends Component {
                             <Form.Label>Location</Form.Label>
                             <Form.Control type='text' required onChange={this.handleChange} name='location' value={location} placeholder='Enter Location (123 Olive Way, Apt 2, 02138 Seattle, WA)' />
                     </Form.Group>
-                    <Form.Row>
+                    <Form.Row style={formStyle}>
                         <Form.Group as={Col} controlId="formGridDate">
                             <Form.Label>Date of Appointment</Form.Label>
                             <Form.Control type='date' required onChange={this.handleChange} name='date_of_appointment' value={date_of_appointment} placeholder='Enter Date' />

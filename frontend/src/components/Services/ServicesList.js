@@ -23,7 +23,7 @@ class ServicesList extends Component {
 
         const subCardStyle = {
             'width': '100%',
-            'margin': '10px'
+            'margin': '10px' 
         }
 
 
@@ -36,15 +36,7 @@ class ServicesList extends Component {
                     style={subCardStyle}
                 >
                     <Card.Header><ServiceCard service={service} match={match} history={history} /></Card.Header>
-                    {/* <Card.Body>
-                    <Card.Text>
-                        <ServiceCard service={service} match={match} history={history} /> 
-                    </Card.Text>
-                    </Card.Body> */}
                 </Card>
-
-
-                
                 )
         } )
     }

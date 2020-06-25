@@ -51,10 +51,10 @@ class GigCard extends Component {
                     <Container>
                         <Row>
                             <Col><Card.Title style={titleStyle} onClick={()=>onSelectGig(gig)} >{gig.title}</Card.Title></Col>
-                            <Col>{gig.client.company_name}</Col>
-                            <Col>{gig.client.contact_name}</Col>
+                            <Col>Client: {gig.client.company_name}</Col>
+                            <Col>Contact: {gig.client.contact_name}</Col>
                             <Col>Created: {this.renderDate(gig.created_at)}</Col>
-                            <Col>{gig.completed}</Col>
+                            <Col>Completed: {gig.completed ? `Completed` : `Ongoing`}</Col>
                             <Col>
                             <Button variant='outline-warning' size='sm' onClick={this.handleEdit}><BsPencilSquare/></Button>
                             <Button variant='outline-warning' size='sm' onClick={()=>onDeleteGig(gig.id)}><BsFillTrashFill/></Button>

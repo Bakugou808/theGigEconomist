@@ -11,6 +11,8 @@ class AppointmentsController < ApplicationController
         # , include: ['profiles']
     end 
 
+  
+
     def create 
         
         @appointment = Appointment.new(appointment_params)

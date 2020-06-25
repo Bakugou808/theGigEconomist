@@ -136,7 +136,7 @@ const servicesReducer = (state=initialState, action) => {
                 data: state.data.filter(service => service.id != action.serviceId)
             } 
 
-        case 'SELECT_SERVICE_FOR_VIEW':
+        case 'SELECT_SERVICE_FOR_VIEW': 
 
             return {
                 ...state, 

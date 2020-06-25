@@ -32,7 +32,7 @@ class ClientForm extends Component {
         })
         }
         
-    }
+    } 
 
     handleChange = (e) => {
         const newFields = {...this.state.fields, [e.target.name]: e.target.value}
@@ -80,7 +80,7 @@ class ClientForm extends Component {
                         <label>venmo</label>
                         <input className="form-control" type="name" name="venmo" value={venmo} required onChange={this.handleChange}/>
                     </div>
-                    <button className="btn btn-info" type="submit">Add Client</button>
+                    <button className="btn btn-info" type="submit">{this.state.edit ? `Save Changes` : `Add Client`}</button>
                 </form>
             </div>
         )

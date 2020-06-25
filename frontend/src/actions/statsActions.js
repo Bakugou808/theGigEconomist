@@ -41,7 +41,7 @@ export const fetchServiceEarnedVsProjFailure = (error) => {
     return {
         type: 'FETCH_SERVICE_EARNED_VS_PROJECTED_FAILURE',
         error: error,
-    }
+    } 
 }
 
 // // ----------Clear Services State-------  *****************************
@@ -56,84 +56,140 @@ export const clearServiceState = () => {
 
 
 
-// // ----------POST SERVICE REQUEST-------  *****************************
+// ----------FETCH_TOTAL_CURRENT_VS_PROJECTED REQUEST-------  *****************************
 
-// export const postServiceRequest = () => {
-//     return {
-//         type: 'POST_SERVICE_REQUEST'
-//     }
-// }
+export const fetchTotalCurrVsProjRequest = () => {
+    return {
+        type: 'FETCH_TOTAL_CURRENT_VS_PROJECTED_REQUEST'
+    }
+}
 
-// export const postServiceSuccess = (service) => {
-//     return {
-//         type: 'POST_SERVICE_SUCCESS',
-//         service: service,
-//     }
-// }
+export const fetchTotalCurrVsProjSuccess = (data) => {
+    return {
+        type: 'FETCH_TOTAL_CURRENT_VS_PROJECTED_SUCCESS',
+        payload: data,
+    }
+}
 
-// export const postServiceFailure = (error) => {
-//     return {
-//         type: 'POST_SERVICE_FAILURE',
-//         error: error,
-//     }
-// }
-
-
-// // ----------PATCH SERVICE REQUEST-------  *****************************
-
-// export const patchServiceRequest = () => {
-//     return {
-//         type: 'PATCH_SERVICE_REQUEST'
-//     }
-// }
-
-// export const patchServiceSuccess = (service) => {
-//     return {
-//         type: 'PATCH_SERVICE_SUCCESS',
-//         service: service,
-//     }
-// }
-
-// export const patchServiceFailure = (error) => {
-//     return {
-//         type: 'PATCH_SERVICE_FAILURE',
-//         error: error,
-//     }
-// }
-
-// // ----------DELETE SERVICE REQUEST-------  *****************************
-
-// export const deleteServiceRequest = () => {
-//     return {
-//         type: 'DELETE_SERVICE_REQUEST'
-//     }
-// }
-
-// export const deleteServiceSuccess = (serviceId) => {
-//     return {
-//         type: 'DELETE_SERVICE_SUCCESS',
-//         serviceId: serviceId,
-//     }
-// }
-
-// export const deleteServiceFailure = (error) => {
-//     return {
-//         type: 'DELETE_SERVICE_FAILURE',
-//         error: error,
-//     }
-// }
-
-// // ----------SELECT SERVICE FOR VIEW-------  *****************************
-
-// export const selectService = (service) => {
-//     return {
-//         type: 'SELECT_SERVICE_FOR_VIEW',
-//         service: service
-//     }
-// }
+export const fetchTotalCurrVsProjFailure = (error) => {
+    return {
+        type: 'FETCH_TOTAL_CURRENT_VS_PROJECTED_FAILURE',
+        error: error,
+    }
+}
 
 
+// ----------FETCH_APPT_THIS_WEEK REQUEST-------  *****************************
 
+export const fetchApptThisWeekRequest = () => {
+    return {
+        type: 'FETCH_APPT_THIS_WEEK_REQUEST'
+    }
+}
+
+export const fetchApptThisWeekSuccess = (data) => {
+    return {
+        type: 'FETCH_APPT_THIS_WEEK_SUCCESS',
+        payload: data,
+    }
+}
+
+export const fetchApptThisWeekFailure = (error) => {
+    return {
+        type: 'FETCH_APPT_THIS_WEEK_FAILURE',
+        error: error,
+    }
+}
+
+
+// ----------FETCH MOST POP SERVICE THIS MONTH REQUEST-------  *****************************
+
+export const fetchMostPopServiceRequest = () => {
+    return {
+        type: 'FETCH_MOST_POP_SERVICE_REQUEST'
+    }
+}
+
+export const fetchMostPopServiceSuccess = (data) => {
+    return {
+        type: 'FETCH_MOST_POP_SERVICE_SUCCESS',
+        payload: data,
+    }
+}
+
+export const fetchMostPopServiceFailure = (error) => {
+    return {
+        type: 'FETCH_MOST_POP_SERVICE_FAILURE',
+        error: error,
+    }
+}
+
+
+// ----------FETCH MOST LUCRATIVE SERVICE THIS MONTH REQUEST-------  *****************************
+
+export const fetchMostLucrativeServiceRequest = () => {
+    return {
+        type: 'FETCH_MOST_LUCRATIVE_SERVICE_REQUEST'
+    }
+}
+
+export const fetchMostLucrativeServiceSuccess = (data) => {
+    return {
+        type: 'FETCH_MOST_LUCRATIVE_SERVICE_SUCCESS',
+        payload: data,
+    }
+}
+
+export const fetchMostLucrativeServiceFailure = (error) => {
+    return {
+        type: 'FETCH_MOST_LUCRATIVE_SERVICE_FAILURE',
+        error: error,
+    }
+}
+
+// ----------FETCH TOTAL STATS FROM THIS YEAR REQUEST-------  *****************************
+
+export const fetchTotalAnnualStatsRequest = () => {
+    return {
+        type: 'FETCH_TOTAL_ANNUAL_STATS_REQUEST'
+    }
+}
+
+export const fetchTotalAnnualStatsSuccess = (data) => {
+    return {
+        type: 'FETCH_TOTAL_ANNUAL_STATS_SUCCESS',
+        payload: data,
+    }
+}
+
+export const fetchTotalAnnualStatsFailure = (error) => {
+    return {
+        type: 'FETCH_TOTAL_ANNUAL_STATS_FAILURE',
+        error: error,
+    }
+}
+
+// ----------FETCH MOST TIME INTENSIVE FROM THIS YEAR REQUEST-------  *****************************
+
+export const fetchTimeIntensiveServiceRequest = () => {
+    return {
+        type: 'FETCH_TIME_INTENSIVE_SERVICE_REQUEST'
+    }
+}
+
+export const fetchTimeIntensiveServiceSuccess = (data) => {
+    return {
+        type: 'FETCH_TIME_INTENSIVE_SERVICE_SUCCESS',
+        payload: data,
+    }
+}
+
+export const fetchTimeIntensiveServiceFailure = (error) => {
+    return {
+        type: 'FETCH_TIME_INTENSIVE_SERVICE_FAILURE',
+        error: error,
+    }
+}
 
 
 // --------API CALLS---------  *********************************************************************************************************************************
@@ -158,7 +214,6 @@ export const fetchServicesMonthsGigs = (serviceId, dispatch) => {
 
 export const fetchServiceEarnedVsProj = (serviceId, dispatch) => {
     dispatch(fetchServiceEarnedVsProjRequest())
-    console.log('in earned vs projected')
     fetch(`http://localhost:3000/earned_vs_projected/${serviceId}`)
         .then(res=>res.json())
         .then(data => {
@@ -170,62 +225,95 @@ export const fetchServiceEarnedVsProj = (serviceId, dispatch) => {
         }) 
 }
 
-// // ----------ADD SERVICE-------  *****************************
+// --------FETCH TOTAL CURRENT VS PROJECTED---------  ********************************
+
+export const fetchTotalCurrVsProj = (userId, dispatch) => {
+    dispatch(fetchTotalCurrVsProjRequest())
+    fetch(`http://localhost:3000/current_vs_projected_income/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchTotalCurrVsProjFailure(data.error))
+            } else {
+                dispatch(fetchTotalCurrVsProjSuccess(data)) 
+            }
+        }) 
+}
 
 
-// export const postNewService = (serviceData, dispatch) => {
-//     dispatch(postServiceRequest())
-//     fetch(`http://localhost:3000/services`, {
-//         method: 'POST',
-//         headers: headers(),
-//         body: JSON.stringify(serviceData)
-//     })
-//         .then(res=>res.json())
-//         .then(data => {
-//             if (data.error){
-//                 dispatch(postServiceFailure(data.error))
-//             } else {
-//                 dispatch(postServiceSuccess(data))
-//             }
-//         }) 
-// }
+// --------FETCH APPT THIS WEEK---------  ********************************
 
-// // ----------PATCH SERVICE-------  *****************************
-
-// export const patchService = (serviceData, serviceId, dispatch) => {
-//     dispatch(patchServiceRequest())
-//     fetch(`http://localhost:3000/services/${serviceId}`, {
-//         method: 'PATCH',
-//         headers: headers(),
-//         body: JSON.stringify(serviceData)
-//     })
-//         .then(res=>res.json())
-//         .then(data => {
-//             if (data.error){
-//                 dispatch(patchServiceFailure(data.error))
-//             } else {
-//                 dispatch(patchServiceSuccess(data))
-//             }
-//         }) 
-// }
+export const fetchApptThisWeek = (userId, dispatch) => {
+    dispatch(fetchApptThisWeekRequest())
+    fetch(`http://localhost:3000/appointments_this_week/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchApptThisWeekFailure(data.error))
+            } else {
+                dispatch(fetchApptThisWeekSuccess(data)) 
+            }
+        }) 
+}
 
 
-// // --------DELETE SERVICE---------  ********************************
+// --------FETCH MOST POP SERVICE THIS MONTH---------  ********************************
 
-// export const deleteService = (serviceId, dispatch) => {
-//     dispatch(deleteServiceRequest())
-//     console.log(serviceId)
-//     fetch(`http://localhost:3000/services/${serviceId}`, {
-//         method: 'DELETE',
-//         headers: headers(),
-//     })
-//         .then(res=>res.json())
-//         .then(data => {
-//             if (data.error){
-//                 dispatch(deleteServiceFailure(data.error))
-//             } else {
-//                 console.log('indelete success')
-//                 dispatch(deleteServiceSuccess(data))
-//             }
-//         }) 
-// }
+export const fetchMostPopService = (userId, dispatch) => {
+    dispatch(fetchMostPopServiceRequest())
+    fetch(`http://localhost:3000/most_pop_service/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchMostPopServiceFailure(data.error))
+            } else {
+                dispatch(fetchMostPopServiceSuccess(data)) 
+            }
+        }) 
+}
+
+
+// --------FETCH MOST LUCRATIVE SERVICE THIS MONTH---------  ********************************
+
+export const fetchMostLucrativeService = (userId, dispatch) => {
+    dispatch(fetchMostLucrativeServiceRequest())
+    fetch(`http://localhost:3000/most_lucrative_service/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchMostLucrativeServiceFailure(data.error))
+            } else {
+                dispatch(fetchMostLucrativeServiceSuccess(data)) 
+            }
+        }) 
+}
+
+// --------FETCH TOTAL ANNUAL STATS---------  ********************************
+
+export const fetchTotalAnnualStats = (userId, dispatch) => {
+    dispatch(fetchTotalAnnualStatsRequest())
+    fetch(`http://localhost:3000/total_annual_stats/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchTotalAnnualStatsFailure(data.error))
+            } else {
+                dispatch(fetchTotalAnnualStatsSuccess(data)) 
+            }
+        }) 
+}
+
+// --------FETCH TIME INTENSIVE SERVICE STATS---------  ********************************
+
+export const fetchTimeIntensiveService = (userId, dispatch) => {
+    dispatch(fetchTimeIntensiveServiceRequest())
+    fetch(`http://localhost:3000/most_time_intensive_service/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.error){
+                dispatch(fetchTimeIntensiveServiceFailure(data.error))
+            } else {
+                dispatch(fetchTimeIntensiveServiceSuccess(data)) 
+            }
+        }) 
+}

@@ -4,9 +4,15 @@ const initialState = {
     error: false,
     serviceStats: {
         gigsThisMonth:[], 
-        earnedVsProjected: [], 
+        earnedVsProjected: [],  
         avgMonthly: [],
     },
+    currentVsProj: {},
+    apptThisWeek: [],
+    mostPopService: [],
+    mostLucService: [],
+    mostTimeIntServ: [],
+    totalAnnualStats: [],
 
 }
 
@@ -64,105 +70,143 @@ const servicesReducer = (state=initialState, action) => {
                 serviceStats: {avgMonthly: [], earnedVsProjected: [], gigsThisMonth: []},
             }
 
-// // ----------ADD SERVICE-------  *****************************
+// ----------FETCH CURRENT VS PROJECTED TOTAL INCOME-------  *****************************
 
-//         case 'POST_SERVICE_REQUEST':
-//             return {
-//                 ...state,
-//                 fetching: true
-//             }
-//         case 'POST_SERVICE_FAILURE':
+        case 'FETCH_TOTAL_CURRENT_VS_PROJECTED_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_TOTAL_CURRENT_VS_PROJECTED_FAILURE':
 
-//             return {
-//                 ...state,
-//                 fetching: false, 
-//                 error: action.error
-//             } 
-//         case 'POST_SERVICE_SUCCESS':
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+        case 'FETCH_TOTAL_CURRENT_VS_PROJECTED_SUCCESS':
         
-//             return {
-//                 ...state,
-//                 fetching: false, 
-//                 data: [...state.data, action.service]
-//             } 
+            return {
+                ...state,
+                fetching: false, 
+                currentVsProj: action.payload
+            } 
+
+
+// ----------FETCH APPT THIS WEEK-------  *****************************
+
+        case 'FETCH_APPT_THIS_WEEK_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_APPT_THIS_WEEK_FAILURE':
+
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+        case 'FETCH_APPT_THIS_WEEK_SUCCESS':
+
+            return {
+                ...state,
+                fetching: false, 
+                apptThisWeek: action.payload
+            }             
             
-// // ----------PATCH SERVICE-------  *****************************
 
-//         case 'PATCH_SERVICE_REQUEST':
-//             return {
-//                 ...state,
-//                 fetching: true
-//             }
-//         case 'PATCH_SERVICE_FAILURE':
+// ----------FETCH MOST POP SERVICE THIS MONTH-------  *****************************
 
-//             return {
-//                 ...state,
-//                 fetching: false, 
-//                 error: action.error
-//             } 
-//         case 'PATCH_SERVICE_SUCCESS':
-//             // const newData = [state.data.filter(service => service.id != action.serviceId)]
-//             idx = state.data.findIndex(service => service.id === action.service.id)
-//             if(state.selectedService.id === action.service.id){
-//                 return {
-//                     ...state,
-//                     fetching: false, 
-//                     data: [...[...state.data.filter(service => service.id != action.service.id)], action.service],
-//                     selectedService: action.service
-//                 } 
-//             }else{
-//                 return {
-//                     ...state,
-//                     fetching: false, 
-//                     data: [...[...state.data.filter(service => service.id != action.service.id)], action.service]
-//                 } 
-//             }
+        case 'FETCH_MOST_POP_SERVICE_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_MOST_POP_SERVICE_FAILURE':
+
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+        case 'FETCH_MOST_POP_SERVICE_SUCCESS':
+
+            return {
+                ...state,
+                fetching: false, 
+                mostPopService: action.payload
+            }             
+            
+// ----------FETCH MOST LUCRATIVE SERVICE THIS MONTH-------  *****************************
+
+        case 'FETCH_MOST_LUCRATIVE_SERVICE_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_MOST_LUCRATIVE_SERVICE_FAILURE':
+
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+        case 'FETCH_MOST_LUCRATIVE_SERVICE_SUCCESS':
+
+            return {
+                ...state,
+                fetching: false, 
+                mostLucService: action.payload
+            }             
+            
+
+// ----------FETCH TIME INTENSIVE SERVICE-------  *****************************
+
+        case 'FETCH_TIME_INTENSIVE_SERVICE_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_TIME_INTENSIVE_SERVICE_FAILURE':
+
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+        case 'FETCH_TIME_INTENSIVE_SERVICE_SUCCESS':
+
+            return {
+                ...state,
+                fetching: false, 
+                mostTimeIntServ: action.payload
+            }   
 
 
-// // ----------DELETE SERVICE-------  *****************************
 
-//         case 'DELETE_SERVICE_REQUEST':
-//             return {
-//                 ...state,
-//                 fetching: true
-//             }
-//         case 'DELETE_SERVICE_FAILURE':
+// ----------FETCH TOTAL ANNUAL STATS-------  *****************************
 
-//             return {
-//                 ...state,
-//                 fetching: false, 
-//                 error: action.error
-//             } 
-//         case 'DELETE_SERVICE_SUCCESS':
-         
-//             return {
-//                 ...state,
-//                 fetching: false, 
-//                 data: state.data.filter(service => service.id != action.serviceId)
-//             } 
+        case 'FETCH_TOTAL_ANNUAL_STATS_REQUEST':
+            return {
+                ...state,
+                fetching: true
+            }
+        case 'FETCH_TOTAL_ANNUAL_STATS_FAILURE':
 
-//         case 'SELECT_SERVICE_FOR_VIEW':
+            return {
+                ...state,
+                fetching: false, 
+                error: action.error
+            } 
+        case 'FETCH_TOTAL_ANNUAL_STATS_SUCCESS':
 
-//             return {
-//                 ...state, 
-//                 selectedService: action.service
-//             }
+            return {
+                ...state,
+                fetching: false, 
+                totalAnnualStats: action.payload
+            }   
 
-        // ----------------------
-        // case 'POST_GIG_SUCCESS':
-        //     return {
-        //         ...state,
-        //         selectedService: [...state.selectedService, {gig: {...state.selectedService.gigs, ...action.gig}}]
-        //     }
-        
-        // case 'SIGN_OUT_USER':
-
-        //     return {
-        //         ...state,
-        //         data: [],
-        //         selectedGigs: [],
-        //         selectedAppointments:[]
-        //     }
 
         default:
             return state
