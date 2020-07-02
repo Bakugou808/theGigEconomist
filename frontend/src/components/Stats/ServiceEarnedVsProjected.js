@@ -1,39 +1,79 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import { VictoryPie } from 'victory'
-import {RadialChart} from 'react-vis' 
+ import Card from 'react-bootstrap/Card'
+ import { connect } from "react-redux";
+ import { Doughnut, Pie } from 'react-chartjs-2';
 
-class ServiceEarnedVsProjected extends Component {
+
+ class ServiceEarnedVsProjected extends Component {
+    
+    generateRandomHexCode() {
+        let hexCode = "#" 
+    
+        while ( hexCode.length < 7 ) {
+          hexCode += (Math.round(Math.random() * 15)).toString(16) 
+        }
+    
+        return hexCode 
+    }
 
     convertData = () => {
-        const {results} = this.props 
-        let data = []
-        // data.push({x: `Earned $${results.earned.sum}`, y: results.earned.sum})
-        // data.push({x: `Projected $${results.projected.sum}`, y: (results.projected.sum - results.earned.sum) })
-        data.push({angle: results.earned.sum, label: 'Earned', subLabel: `$${results.earned.sum}/$${results.projected.sum}`})
-        data.push({angle: (results.projected.sum - results.earned.sum), label: 'Remaining', subLabel: `$${results.projected.sum - results.earned.sum}` })
-        return data
+        const {results} = this.props
+
+        let datasets = [{data: [], backgroundColor: []}]
+        let labels = []
+        let dataset = {label: '', backgroundColor: [], data: []}
+        let month = new Date()
+        month = month.toLocaleString('default', { month: 'long'})
+
+       
+
+
+        let data = {'Projected': (results.projected.sum - results.earned.sum), 'Earned': results.earned.sum}
+        
+        for(const stat in data){
+            
+            let count = data[stat]
+            let yMax = count + (count/2)
+            let color = this.generateRandomHexCode()
+            
+            labels.push(`${stat}: $${count}`)
+            datasets[0].data.push(count)
+            datasets[0].backgroundColor.push(color)
+            console.log(datasets)
+        }
+
+
+        const chartData = {
+            labels: [...labels],
+            datasets: [...datasets]
+        }
+        return chartData
+        
     }
     
-
     render() {
-        return (
-            <div>
-                {/* {this.props.results && <VictoryPie
-                    colorScale={['cyan', 'gold']}
-                    data={this.convertData()} /> */}
-                    
-                {this.props.results.earned &&
-                    <RadialChart 
-                        showLabels={true}
-                        labelsRadiusMultiplier={1}
-                        data={this.convertData()}
-                        width={900}
-                        height={300}
-                        // labelsStyle={{'margin': '10px'}}
-                    />
-                }    
+        const options = {
+            scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true
+                          },
+                          scaleLabel: {
+                               display: true,
+                               labelString: 'Dollars',
+                               fontSize: 20 
+                            }
+                      }]            
+                  }  
+          }
 
+        return (
+            <div> 
+                <Card>
+                    <Card.Body>
+                        {this.props.results.earned && <Doughnut data={this.convertData()} />}
+                    </Card.Body>
+                </Card>
             </div>
         )
     }

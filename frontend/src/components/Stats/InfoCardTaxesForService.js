@@ -12,6 +12,7 @@ function InfoCardTaxesForService(props) {
         let ssTax = (.124 * totalEarned)
         let mediTax = +((.029 * totalEarned).toFixed(2))
         let totalTax = ssTax + mediTax
+        totalTax = Math.round(totalTax * 100)/100
 
         data = [{y: mediTax, x: `Medicare Tax`}, {y: ssTax, x: `Social Security Tax`}, {y: (totalEarned - totalTax), x: `Profits After Tax`}]
        
