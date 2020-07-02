@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {RadialChart, DiscreteColorLegend} from 'react-vis'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import {
+import { 
     XYPlot,
     XAxis, // Shows the values on x axis
     YAxis, // Shows the values on y axis

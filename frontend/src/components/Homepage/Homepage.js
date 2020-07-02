@@ -86,17 +86,17 @@ class Homepage extends Component {
                     </Col>
                 </Row>
                 {/* appointments this week --> Google Cal? */}
-                {/* <Row>
+                <Row>
                     <Col>
                         <Card border='info'
                             bg="warning"
                             text={'warning' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}>
-                            <Card.Header><Card.Title>Appointments This Week</Card.Title></Card.Header>
+                            <Card.Header><Card.Title>Total Taxes Thus Far</Card.Title></Card.Header>
                             <Card.Body >
                                 <Row>
                                     <Col style={statStyle}>
-                                        <ApptThisWeek />
+                                        
                                     </Col>
                                     <Col style={statStyle}>
                                         Card Info COMPONENT
@@ -105,7 +105,7 @@ class Homepage extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row> */}
+                </Row>
                 {/* most popular service */}
                 <Row>
                     <Col>

@@ -20,16 +20,20 @@ class PopInfoCard extends Component {
             
             if (!mostPop.length) {
                 mostPop = [service, element]
+            
             }
             else if (element.length > mostPop[1].length) {
-
+                
                 nextPop = mostPop
                 mostPop = []
                 mostPop = [service, element]
             } else if (nextPop[1] && element.length > nextPop[1].length) {
+                
                 nextPop = []
                 nextPop = [service, element]
-            }
+            } else {
+                nextPop = []
+                nextPop = [service, element]            }
         }
         console.log('mostPop', mostPop)
         console.log('nextPop', nextPop)

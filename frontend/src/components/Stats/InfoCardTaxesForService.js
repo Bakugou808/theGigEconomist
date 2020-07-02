@@ -22,7 +22,7 @@ function InfoCardTaxesForService(props) {
         "margin": '10px',
     }
 
-    return (
+    return ( 
         <div>
             {props.results.earned && <Card bg={'warning'}
                 // key={service.id}

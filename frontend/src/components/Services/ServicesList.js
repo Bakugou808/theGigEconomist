@@ -22,8 +22,8 @@ class ServicesList extends Component {
         const {match, history} = this.props
 
         const subCardStyle = {
-            'width': '100%',
-            'margin': '10px' 
+            'width': '96%',
+            'margin': '20px' 
         }
 
 
@@ -52,7 +52,7 @@ class ServicesList extends Component {
         }
 
         const containerStyle = {
-            'width': 'auto', 
+            // 'width': 'inherit', 
             'height': 'auto',
             'overflow-y': 'auto',
             'margin': '5px',
@@ -65,30 +65,28 @@ class ServicesList extends Component {
         }
         
         return ( 
-            <div>
-                {/* {this.props.services.data && this.renderServices()} */}
-                <Accordion defaultActionKey="0">
-                    <Card
-                        bg={'info'}
-                        // key={service.id}
-                        border='warning'
-                        style={cardStyle}
-                        text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
-                    >
-                        {/* <Card.Header> */}
-                            <Accordion.Toggle as={Card.Header} eventKey='0' >
-                                <Card.Title style={titleStyle}>Select A Service </Card.Title> 
-                            </Accordion.Toggle>
-                        {/* </Card.Header> */}
-                        <Accordion.Collapse eventKey='0'>
-                            <Container style={containerStyle}>
-                                {this.props.services.data && this.renderServices()}
-                            </Container>
-                        </Accordion.Collapse>
-                    </Card>
-                </Accordion>    
-
-            </div>
+           
+                // <Accordion defaultActionKey="0">
+                //     <Card
+                //         bg={'info'}
+                //         // key={service.id}
+                //         border='warning'
+                //         style={cardStyle}
+                //         text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                //     >
+                //         {/* <Card.Header> */}
+                //             <Accordion.Toggle as={Card.Header} eventKey='0' >
+                //                 <Card.Title style={titleStyle}>Select A Service </Card.Title> 
+                //             </Accordion.Toggle>
+                //         {/* </Card.Header> */}
+                //         <Accordion.Collapse eventKey='0'>
+                //             <Container style={containerStyle}>
+                                <div>{this.props.services.data && this.renderServices()}</div>
+                //             </Container>
+                //         </Accordion.Collapse>
+                //     </Card>
+                // </Accordion>    
+            
         )
     }
 }

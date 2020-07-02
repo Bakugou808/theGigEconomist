@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { VictoryPie } from 'victory'
-import {RadialChart} from 'react-vis'
+import {RadialChart} from 'react-vis' 
 
 class ServiceEarnedVsProjected extends Component {
 

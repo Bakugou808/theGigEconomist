@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route } from "react-router-dom";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import ServicesList from './ServicesList'
 import GigsForService from '../Stats/GigsForService'
@@ -15,6 +15,8 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Modal from 'react-bootstrap/Modal'
+import Accordion from 'react-bootstrap/Accordion'
+
 import ModalDialog from 'react-bootstrap/ModalDialog'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
@@ -33,18 +35,19 @@ class ServicesContainer extends Component {
     }
 
     handleClick = () => {
-        this.setState(prev => ({form: !prev.form}))
+        this.setState(prev => ({ form: !prev.form }))
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onClearStore()
     }
-    
 
-    render() { 
+
+    render() {
+        
         const {history, match, selectedService, earnedVsProjected} = this.props
         const subCardStyle = {
-            'width': '100',
+            'width': '100%',
             'margin': '10px'
         }
         const cardStyle = {
@@ -59,36 +62,55 @@ class ServicesContainer extends Component {
             'height': '100%',
             'margin': '10px'
         }
+
+        const containerStyle = {
+            // 'width': 'inherit', 
+            'height': 'auto',
+            'overflow-y': 'auto',
+            'margin': '5px',
+            '.scrollbar-width': 'thin',
+            '.scrollbar-color': 'yellow'
+        }
+
+        const titleStyle = {
+            "cursor": 'pointer'
+        }
         return (
-            
-            <Container >
+            <Container>
+                {/* current vs projected income */}
                 <Row>
-                    <Col md={9} >
-
-                        <ServicesList history={history} match={match} handleClick={this.handleClick} showForm={this.handleClick} />
-                    </Col>
-
-                    <Col>
-                        {earnedVsProjected.earned && <Card
-                            border='info'
-                            bg="warning"
-                            text={'warning' === 'light' ? 'dark' : 'white'}
-                            style={subCardStyle}
-                        >
-                            <Card.Header>This Months Earnings From {selectedService.title}: ${earnedVsProjected.earned.sum}</Card.Header>
-                        </Card>}
+                    <Col >
+                    <Accordion defaultActionKey="0">
+                    <Card
+                        bg={'info'}
+                        // key={service.id}
+                        border='warning'
+                        style={subCardStyle}
+                        text={'info'.toLowerCase() === 'light' ? 'dark' : 'white'}
+                    >
+                        {/* <Card.Header> */}
+                            <Accordion.Toggle as={Card.Header} eventKey='0' >
+                                <Card.Title style={titleStyle}>Select A Service </Card.Title> 
+                            </Accordion.Toggle>
+                        {/* </Card.Header> */}
+                        <Accordion.Collapse eventKey='0'>
+                            <Container style={containerStyle}>
+                            <ServicesList history={history} match={match} handleClick={this.handleClick} showForm={this.handleClick} earnedVsProjected={this.props.earnedVsProjected} /> 
+                            </Container>
+                        </Accordion.Collapse>
+                    </Card>
+                </Accordion> 
+                        {/* <ServicesList history={history} match={match} handleClick={this.handleClick} showForm={this.handleClick} earnedVsProjected={this.props.earnedVsProjected} /> */}
                     </Col>
                 </Row>
-
                 <Row>
-                    <Col md={9}  >
+                    <Col  >
                         <Button size='sm' variant='outline-warning' onClick={this.handleClick} >+</Button>
                         {this.props.selectedService.id && <Card border='warning' bg="info"
                             text={'info' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}><ServiceCard service={this.props.selectedService} match={match} history={history} /></Card>}
                     </Col>
                 </Row>
-
                 <div>
                     {this.state.form && <Modal show={this.state.form} onHide={this.handleClick}>
                         <Modal.Header closeButton>
@@ -100,60 +122,76 @@ class ServicesContainer extends Component {
                         </Modal.Footer>
                     </Modal>} 
                 </div>
-                <Row className="#ofGigsForService">
-                    <Col md={9}>
-                        <Card border='info'
-                            bg="warning"
-                            text={'warning' === 'light' ? 'dark' : 'white'}
-                            style={subCardStyle}>
-                            <Card.Header><Card.Title>Gigs For Service</Card.Title></Card.Header>
-                            <Row>
-                                <Col md={9}>
-                                <Card.Body style={subCardStyle}>{selectedService.id && <GigsForService />}</Card.Body>
-                                </Col>
-                                <Col>{selectedService.id && <InfoCardGigsForService />}</Col>
-                            </Row>
-                            
-                        </Card>
-                        
-                        
-                    </Col>
-                    <Col>{selectedService.id && <InfoCardGigsForService />}</Col>
-                </Row>
-                <Row className="totalEarnedVsProjectedForService">
-                    <Col md={9}>
-                        <Card border='info'
-                            bg="warning"
-                            text={'warning' === 'light' ? 'dark' : 'white'}
-                            style={subCardStyle}>
-                            <Card.Header><Card.Title>Earned vs. Projected For Service</Card.Title></Card.Header>
-                            <Card.Body style={statStyle}>{selectedService.id && <ServiceEarnedVsProjected />}</Card.Body>
-                        </Card>
-                    </Col>
+                <Row>
                     <Col>
-                        {selectedService.id && <InfoCardEarnedVsProj />}
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Gigs For Service</Card.Title><Card.Subtitle>This Months Analysis</Card.Subtitle>
+                            </Card.Header>
+
+                            <Card.Body >
+                                <Row>
+                                    <Col style={statStyle}>
+                                        {selectedService.id && <GigsForService />}
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        {selectedService.id && <InfoCardGigsForService />}
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
-                <Row className="AverageMonthlyIncomeFromService">
-                    <Col md={9}>
+                {/* appointments this week --> Google Cal? */}
+                <Row>
+                    <Col>
                         <Card border='info'
                             bg="warning"
                             text={'warning' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}>
-                            <Card.Header><Card.Title>Taxes For Service</Card.Title></Card.Header>
-                        <Card.Body style={statStyle}>{selectedService.id && <TaxesForService />}</Card.Body>
+                            <Card.Header><Card.Title>Earned Vs. Projected</Card.Title></Card.Header>
+                            <Card.Body >
+                                <Row>
+                                    <Col style={statStyle}>
+                                        {selectedService.id && <ServiceEarnedVsProjected />}
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        {selectedService.id && <InfoCardEarnedVsProj />}
+                                    </Col>
+                                </Row>
+                            </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+                {/* most lucrative service */}
+                <Row>
                     <Col>
-                        {selectedService.id && <InfoCardTaxesForService />}
+                        <Card border='info'
+                            bg="warning"
+                            text={'warning' === 'light' ? 'dark' : 'white'}
+                            style={subCardStyle}>
+                            <Card.Header><Card.Title>Taxes For Service Thus Far</Card.Title></Card.Header>
+                            <Card.Body>
+                                <Row>
+                                    <Col style={statStyle}>
+                                        {selectedService.id && <TaxesForService />}
+                                    </Col>
+                                    <Col style={statStyle}>
+                                        {selectedService.id && <InfoCardTaxesForService />}
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
 
             </Container>
-            
         )
     }
 }
+
 
 const mapStateToProps = (store) => {
     return {
