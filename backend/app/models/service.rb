@@ -125,9 +125,12 @@ class Service < ApplicationRecord
     gigs.each{|gig| 
       if serviceHash[gig.service_type]
         serviceHash[gig.service_type] <<  (Appointment.where(['date_of_appointment > ? AND date_of_appointment < ? AND gig_id = ?', start_date, end_date, gig.id]))
+        serviceHash[gig.service_type].flatten!
       else 
         serviceHash[gig.service_type] = []
         serviceHash[gig.service_type] <<  (Appointment.where(['date_of_appointment > ? AND date_of_appointment < ? AND gig_id = ?', start_date, end_date, gig.id]))
+        serviceHash[gig.service_type].flatten!
+
       end
     }
 
@@ -191,6 +194,7 @@ class Service < ApplicationRecord
             serviceHash[gig.service_type][:sum] += appt.payment_amount.split('$')[1].to_i
             serviceHash[gig.service_type][:apptCount] += 1
             serviceHash[gig.service_type][:totalTimeMin] += (appt.end_of_appointment - appt.time_of_appointment)
+            
           end
         }
       else 

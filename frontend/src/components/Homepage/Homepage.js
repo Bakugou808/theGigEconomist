@@ -4,12 +4,21 @@ import { AuthHOC } from '../HOCs/AuthHOC'
 import { fetchClients } from '../../actions/clientActions';
 import { fetchServices } from '../../actions/serviceActions'
 import { fetchTotalCurrVsProj, fetchApptThisWeek, fetchMostPopService, fetchMostLucrativeService, fetchTotalAnnualStats, fetchTimeIntensiveService } from '../../actions/statsActions'
+import CurrentVsProjectedIncome from '../HomepageStats/CurrentVsProjectedIncome'
+import PopularService from '../HomepageStats/PopularService'
+import LucrativeService from '../HomepageStats/LucrativeService'
+import TimeIntensive from '../HomepageStats/TimeIntensive'
+import CurrVsProjInfoCard from '../HomepageStats/CurrVsProjInfoCard'
+import LucInfoCard from '../HomepageStats/LucInfoCard'
+import TimeInfoCard from '../HomepageStats/TimeInfoCard'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import PopInfoCard from '../HomepageStats/PopInfoCard';
+
 
 const user_id = localStorage.userId
 
@@ -36,7 +45,7 @@ class Homepage extends Component {
     render() {
         const { match } = this.props
         const subCardStyle = {
-            'width': '100',
+            'width': '100%',
             'margin': '10px'
         }
         const cardStyle = {
@@ -60,14 +69,16 @@ class Homepage extends Component {
                             bg="warning"
                             text={'warning' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}>
-                            <Card.Header><Card.Title>Current vs. Projected Income</Card.Title></Card.Header>
+                            <Card.Header><Card.Title>Current vs. Projected Income</Card.Title><Card.Subtitle>Annual Analysis</Card.Subtitle>
+                            </Card.Header>
+
                             <Card.Body >
                                 <Row>
                                     <Col style={statStyle}>
-                                        Graph COMPONENT
+                                        <CurrentVsProjectedIncome />
                                     </Col>
                                     <Col style={statStyle}>
-                                        Card Info COMPONENT
+                                        <CurrVsProjInfoCard />
                                     </Col>
                                 </Row>
                             </Card.Body>
@@ -75,7 +86,7 @@ class Homepage extends Component {
                     </Col>
                 </Row>
                 {/* appointments this week --> Google Cal? */}
-                <Row>
+                {/* <Row>
                     <Col>
                         <Card border='info'
                             bg="warning"
@@ -85,7 +96,7 @@ class Homepage extends Component {
                             <Card.Body >
                                 <Row>
                                     <Col style={statStyle}>
-                                        Graph COMPONENT
+                                        <ApptThisWeek />
                                     </Col>
                                     <Col style={statStyle}>
                                         Card Info COMPONENT
@@ -94,7 +105,7 @@ class Homepage extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row>
+                </Row> */}
                 {/* most popular service */}
                 <Row>
                     <Col>
@@ -106,10 +117,10 @@ class Homepage extends Component {
                             <Card.Body >
                                 <Row>
                                     <Col style={statStyle}>
-                                        Graph COMPONENT
+                                        <PopularService />
                                     </Col>
                                     <Col style={statStyle}>
-                                        Card Info COMPONENT
+                                        <PopInfoCard />
                                     </Col>
                                 </Row>
                             </Card.Body>
@@ -127,10 +138,10 @@ class Homepage extends Component {
                             <Card.Body>
                                 <Row>
                                     <Col style={statStyle}>
-                                        Graph COMPONENT
+                                        <LucrativeService />
                                     </Col>
                                     <Col style={statStyle}>
-                                        Card Info COMPONENT
+                                        <LucInfoCard />
                                     </Col>
                                 </Row>
                             </Card.Body>
@@ -148,10 +159,10 @@ class Homepage extends Component {
                             <Card.Body>
                                 <Row>
                                     <Col style={statStyle}>
-                                        Graph COMPONENT
+                                        <TimeIntensive />
                                     </Col>
                                     <Col style={statStyle}>
-                                        Card Info COMPONENT
+                                        <TimeInfoCard /> 
                                     </Col>
                                 </Row>
                             </Card.Body>

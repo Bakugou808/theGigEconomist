@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Card from 'react-bootstrap/Card'
 
 class TotalTaxes extends Component {
     
@@ -6,12 +7,13 @@ class TotalTaxes extends Component {
         return (
             <div>
                 <Card>
+                    <Card.Title></Card.Title>
                     <Card.Body>
-
+  
                     </Card.Body>
                 </Card>
             </div>
-        )
+        ) 
     }
 }
 
