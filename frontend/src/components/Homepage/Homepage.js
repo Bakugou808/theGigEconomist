@@ -11,6 +11,9 @@ import TimeIntensive from '../HomepageStats/TimeIntensive'
 import CurrVsProjInfoCard from '../HomepageStats/CurrVsProjInfoCard'
 import LucInfoCard from '../HomepageStats/LucInfoCard'
 import TimeInfoCard from '../HomepageStats/TimeInfoCard'
+import TotalTaxes from '../HomepageStats/TotalTaxes'
+import TaxInfoCard from '../HomepageStats/TaxInfoCard'
+
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -92,14 +95,14 @@ class Homepage extends Component {
                             bg="warning"
                             text={'warning' === 'light' ? 'dark' : 'white'}
                             style={subCardStyle}>
-                            <Card.Header><Card.Title>Total Taxes Thus Far</Card.Title></Card.Header>
+                            <Card.Header><Card.Title>Total Taxes This Year</Card.Title></Card.Header>
                             <Card.Body >
                                 <Row>
                                     <Col style={statStyle}>
-                                        
+                                        <TotalTaxes /> 
                                     </Col>
                                     <Col style={statStyle}>
-                                        Card Info COMPONENT
+                                        <TaxInfoCard />
                                     </Col>
                                 </Row>
                             </Card.Body>

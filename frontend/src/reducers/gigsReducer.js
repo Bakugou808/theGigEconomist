@@ -124,6 +124,17 @@ const gigsReducer = (state=initialState, action) => {
                 ...state,
                 selectedGig: []
             }
+        case 'CLEAR_GIG_LIST':
+            return {
+                ...state,
+                gigsForService: []
+            }
+        
+        case 'CLEAR_APPOINTMENTS_LIST':
+            return {
+                ...state,
+                selectedGig: []
+            }
 
         default:
             return state

@@ -123,7 +123,7 @@ const servicesReducer = (state=initialState, action) => {
                 ...state,
                 fetching: true
             }
-        case 'FETCH_MOST_POP_SERVICE_FAILURE':
+        case 'FETCH_MOST_POP_SERVICE_FAILURE': 
 
             return {
                 ...state,

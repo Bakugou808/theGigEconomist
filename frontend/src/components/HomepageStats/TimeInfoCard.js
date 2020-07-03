@@ -17,7 +17,7 @@ class TimeInfoCard extends Component {
             'align-items': 'center',
             'justify-content': 'center',
             'display': 'flex',
-            'width': '98%',
+            'width': 'flex',
             'height': '100%',
             'margin': '10px'
         }

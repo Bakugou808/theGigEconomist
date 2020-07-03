@@ -17,7 +17,7 @@ class LucInfoCard extends Component {
             'align-items': 'center',
             'justify-content': 'center',
             'display': 'flex',
-            'width': '98%',
+            'width': 'flex',
             'height': '100%',
             'margin': '10px'
         }
@@ -56,9 +56,9 @@ class LucInfoCard extends Component {
                             <Card.Body >
                                 <Card.Title>Top 2 Lucrative Services</Card.Title>
                                 <Card.Text >
-                                    {mostLuc[1] && `The most lucrative service this month was {mostLuc[0]}. With a current total of $${mostLuc[1].sum}.`}
+                                    {mostLuc[1] && `The most lucrative service this month was ${mostLuc[0]}. With a current total of $${mostLuc[1].sum}.`}
                                 <br />
-                                {nextLuc[1] && `The second most lucractive service this month was {nextLuc[0]}. With a current total of $${nextLuc[1].sum}.`}
+                                {nextLuc[1] && `The second most lucractive service this month was ${nextLuc[0]}. With a current total of $${nextLuc[1].sum}.`}
                             </Card.Text>
                             </Card.Body>
                         </Card>

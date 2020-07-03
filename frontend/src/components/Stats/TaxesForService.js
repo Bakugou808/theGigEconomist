@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+ import React, { Component } from 'react'
  import Card from 'react-bootstrap/Card'
  import { connect } from "react-redux";
  import { Bar } from 'react-chartjs-2';

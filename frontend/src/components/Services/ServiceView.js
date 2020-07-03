@@ -31,7 +31,8 @@ class ServiceView extends Component {
     
     componentDidMount(){
         const {match, onFetchService, onSetGigsForService, thisService} = this.props
-        let serviceId = match.params.serviceId
+        // let serviceId = match.params.serviceId
+        let serviceId = thisService.id
         
         onFetchService(serviceId)
         // onSetGigsForService(thisService.gigs)
@@ -109,7 +110,7 @@ class ServiceView extends Component {
 
             <Container>
                 <Row>
-                    <Col md={9}>
+                    <Col>
                         <Card
                             bg={'info'}
                             // key={service.id}
@@ -121,7 +122,7 @@ class ServiceView extends Component {
                         </Card>
                         
                     </Col>
-                    <Col>
+                    {/* <Col>
                         <Card bg={'warning'}
                             // key={service.id}
                             border='info'
@@ -131,7 +132,7 @@ class ServiceView extends Component {
                             <Card.Text style={cardStyle}>Projected Earnings For {thisService.title}: ${this.totalTotalDue().sum}</Card.Text>
                             <Card.Text style={cardStyle}>You've Completed {this.totalTotalDue().earnedCount} Appointments out of {this.totalTotalDue().numAppts}</Card.Text>
                         </Card>
-                    </Col>
+                    </Col> */}
                 </Row>
                 <Row>
                     <Col md={12}>
@@ -157,7 +158,7 @@ class ServiceView extends Component {
                     </Col>
 
                 </Row>
-                <Row>
+                <Row> 
                     <Container>
                         <Row>
                             <Col md={12}>

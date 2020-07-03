@@ -1,7 +1,8 @@
- import React, { Component } from 'react'
+ import React, { Component, Fragment } from 'react'
 import AppointmentView from './AppointmentView'
  import { connect } from 'react-redux'
 import { AuthHOC } from '../HOCs/AuthHOC'
+import { clearAppointmentsList } from '../../actions/appointmentsActions'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -17,6 +18,10 @@ import ModalFooter from 'react-bootstrap/ModalFooter'
  
 class AppointmentsList extends Component {
 
+    componentDidMount() {
+        this.props.onClearAppointments()
+    }
+
     renderCompletedAppointments = () => {
         const {appointments, closeForm} = this.props
         return appointments.completed.map(appointment => <AppointmentView  appointment={appointment}/>)
@@ -31,8 +36,14 @@ class AppointmentsList extends Component {
          const {appointments} = this.props
          return (
              <div>
+                 {appointments !== [] && 
+                 <Fragment>
                  {appointments.incomplete && this.renderIncompleteAppointments()}
                  {appointments.completed && this.renderCompletedAppointments()}
+                 </Fragment>
+                 }
+                 {appointments === [] && 
+                 null}
              </div>
          )
      }
@@ -46,7 +57,7 @@ class AppointmentsList extends Component {
 
  const mapDispatchToProps = (store) => {
     return {
-        
+        onClearAppointments: () => clearAppointmentsList()
     }
 }
  

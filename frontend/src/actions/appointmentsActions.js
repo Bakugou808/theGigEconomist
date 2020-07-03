@@ -129,6 +129,13 @@ export const selectAppointment = (appointment) => {
     }
 }
 
+export const clearAppointmentsList = () => {
+    console.log("in clear appnts")
+    return {
+        type: 'CLEAR_APPOINTMENTS_LIST'
+    }
+}
+
 
 
 // --------API CALLS---------  *********************************************************************************************************************************

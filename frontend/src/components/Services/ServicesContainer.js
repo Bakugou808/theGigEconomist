@@ -25,6 +25,7 @@ import InfoCardEarnedVsProj from '../Stats/InfoCardEarnedVsProj';
 import TaxesForService from '../Stats/TaxesForService';
 import InfoCardTaxesForService from '../Stats/InfoCardTaxesForService';
 import { clearServiceState } from '../../actions/statsActions'
+import ServiceView from './ServiceView'
 
 
 
@@ -50,7 +51,7 @@ class ServicesContainer extends Component {
             'width': '100%',
             'margin': '10px'
         }
-        const cardStyle = {
+        const cardStyle = { 
             "margin": '10px',
         }
 
@@ -108,7 +109,7 @@ class ServicesContainer extends Component {
                         <Button size='sm' variant='outline-warning' onClick={this.handleClick} >+</Button>
                         {this.props.selectedService.id && <Card border='warning' bg="info"
                             text={'info' === 'light' ? 'dark' : 'white'}
-                            style={subCardStyle}><ServiceCard service={this.props.selectedService} match={match} history={history} /></Card>}
+                            style={subCardStyle}><ServiceCard displayGigs={true} service={this.props.selectedService} match={match} history={history} /></Card>}
                     </Col>
                 </Row>
                 <div>
@@ -122,6 +123,12 @@ class ServicesContainer extends Component {
                         </Modal.Footer>
                     </Modal>} 
                 </div>
+
+
+
+                {/* {this.props.selectedService.id && <ServiceView />} */}
+
+
                 <Row>
                     <Col>
                         <Card border='info'

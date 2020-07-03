@@ -142,8 +142,8 @@ class Service < ApplicationRecord
 
   def self.totalStats(user_id)
     user = User.find(user_id)
-    start_date = Time.now.beginning_of_month.to_date
-    end_date = Time.now.end_of_month.to_date
+    start_date = Time.now.beginning_of_year.to_date
+    end_date = Time.now.end_of_year.to_date
     services = Service.where(['created_at > ? AND created_at < ? AND user_id = ?', start_date, end_date, user.id])
     appointments = {totals: {totalSum: 0, projSum: 0, totalAppts: 0, totalServices: 0, completed: 0, incomplete: 0}, services: {}}
     
