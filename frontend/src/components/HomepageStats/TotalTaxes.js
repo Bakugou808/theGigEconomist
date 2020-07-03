@@ -73,7 +73,7 @@ class TotalTaxes extends Component {
 
         for (const stat in data) {
             
-            let count = data[stat]
+            let count = data[stat].toFixed(2)
             let yMax = count + (count / 2)
             let color = this.generateRandomHexCode()
 
@@ -91,7 +91,7 @@ class TotalTaxes extends Component {
         return chartData
 
     }
-
+ 
 
     render() {
         const options = {

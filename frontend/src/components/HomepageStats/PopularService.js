@@ -28,7 +28,7 @@ class PopularService extends Component {
             let count = data[service].length
             let yMax = count + (count/2)
             let color = this.generateRandomHexCode()
-            dataset = {label: service, backgroundColor: color, data: [count, yMax]}
+            dataset = {label: `${service}: ${count}`, backgroundColor: color, data: [count, yMax]}
             datasets.push(dataset)
             console.log(datasets)
         }

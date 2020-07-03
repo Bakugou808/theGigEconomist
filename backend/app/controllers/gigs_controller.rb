@@ -43,6 +43,6 @@ class GigsController < ApplicationController
     end 
 
     def gig_params
-        params.permit(:title, :service_type, :service_id, :client_id, :details, :completed)
+        params.require(:gig).permit(:title, :service_type, :service_id, :client_id, :details, :completed)
     end 
 end
